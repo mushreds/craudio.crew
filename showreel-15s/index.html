@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Tudo escorre</title>
+<!--
+  Craudio Crew · showreel de 15 s · "Tudo escorre"
+  1920x1080, 120 BPM (batida = 0,5 s). Tudo é calculado a partir do tempo em window.seek(t):
+  sem animação CSS, sem timer, sem estado entre quadros.
+  Fonte única: Climate Crisis (eixo YEAR 1979..2019). Cores: laranja, roxo, roxo-claro + fundo (preto) e tinta (branco).
+-->
+<style>
+  @font-face { font-family: CC; src: url(fonts/climate-crisis-latin.woff2) format('woff2'); font-display: block; }
+  html, body { margin: 0; background: #1a0838; }
+  #stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #1a0838; }
+  #sv { position: absolute; left: 0; top: 0; }
+  text { font-family: CC; }
+  #l3d { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; perspective: 2000px; perspective-origin: 960px 600px; }
+  #ring { position: absolute; left: 960px; top: 600px; width: 0; height: 0; transform-style: preserve-3d; }
+  .panel { position: absolute; left: 0; top: 0; font-family: CC; white-space: nowrap; line-height: 1; }
+  .panel span { display: inline-block; transform: scaleY(1.3); }
+  #capi { position: absolute; left: -225px; top: -277.5px; width: 450px; height: 555px; transform-origin: 50% 100%; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <svg id="sv" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+    <defs id="defs"></defs>
+    <g id="root"></g>
+  </svg>
+  <div id="l3d"><div id="ring"><img id="capi" src="capivara.svg" alt=""></div></div>
+</div>
+<script>
+// ---------- paleta (tokens do design system) ----------
+const F = '#1a0838', T = '#f1ece4', L = '#ff7a1a', R = '#8b6cf5', RC = '#b8a4ff', K = '#000000';
+const W = 1920, H = 1080, CX = 960, CY = 540, BEAT = 0.5, DUR = 15;
+
+// ---------- matemática do tempo ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const seg = (t, a, d) => clamp((t - a) / d);
+const N10 = 1 - Math.pow(2, -10);
+const eo = x => x <= 0 ? 0 : x >= 1 ? 1 : (1 - Math.pow(2, -10 * x)) / N10;            // exponencial saindo
+const ei = x => x <= 0 ? 0 : x >= 1 ? 1 : (Math.pow(2, 10 * x - 10) - Math.pow(2, -10)) / N10; // exponencial entrando
+const eio = x => x < 0.5 ? ei(2 * x) / 2 : 0.5 + eo(2 * x - 1) / 2;
+// mola quase criticamente amortecida (overshoot ~1%, nada de quique)
+function spr(x, f = 2.6, z = 0.82) {
+  if (x <= 0) return 0;
+  const w = 2 * Math.PI * f, wd = w * Math.sqrt(1 - z * z);
+  return 1 - Math.exp(-z * w * x) * (Math.cos(wd * x) + (z * w / wd) * Math.sin(wd * x));
+}
+const lr = (a, b, k) => ({ x: lerp(a.x, b.x, k), y: lerp(a.y, b.y, k), w: lerp(a.w, b.w, k), h: lerp(a.h, b.h, k), r: lerp(a.r, b.r, k) });
+const vel = (fn, t) => (fn(t) - fn(t - 1 / 240)) * 240; // px/s
+
+// ---------- SVG helpers ----------
+const NS = 'http://www.w3.org/2000/svg';
+const defs = document.getElementById('defs'), root = document.getElementById('root');
+function el(tag, attrs = {}, parent = root) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  parent.appendChild(e); return e;
+}
+const set = (e, attrs) => { for (const k in attrs) e.setAttribute(k, attrs[k]); };
+const show = (e, on) => { e.style.display = on ? '' : 'none'; };
+function setRect(e, r) { set(e, { x: r.x, y: r.y, width: Math.max(0, r.w), height: Math.max(0, r.h), rx: Math.max(0, Math.min(r.r, r.w / 2, r.h / 2)) }); }
+// borrão direcional: um filtro por grupo, desvio segue a velocidade
+function mkBlur(id) { const f = el('filter', { id, x: '-30%', y: '-30%', width: '160%', height: '160%' }, defs); return el('feGaussianBlur', { stdDeviation: '0 0' }, f); }
+function blur(fe, vx, vy) { const k = 0.0035; fe.setAttribute('stdDeviation', `${Math.min(40, Math.abs(vx) * k).toFixed(2)} ${Math.min(40, Math.abs(vy) * k).toFixed(2)}`); }
+
+// ---------- medida das letras e das hastes (canvas, mesma fonte) ----------
+const cv = document.createElement('canvas'), cx2 = cv.getContext('2d', { willReadFrequently: true });
+function measure(ch, size) {
+  cx2.font = `${size}px CC`;
+  const adv = cx2.measureText(ch).width;
+  if (ch === ' ') return { adv, bbox: null, stem: null };
+  const pad = Math.ceil(size * 0.3), cw = Math.ceil(adv + pad * 2), chh = Math.ceil(size * 1.8), base = Math.ceil(size * 1.3);
+  cv.width = cw; cv.height = chh; cx2.font = `${size}px CC`; cx2.fillStyle = '#000'; cx2.fillText(ch, pad, base);
+  const d = cx2.getImageData(0, 0, cw, chh).data, on = (x, y) => d[(y * cw + x) * 4 + 3] > 140;
+  let x0 = cw, x1 = -1, y0 = chh, y1 = -1;
+  for (let y = 0; y < chh; y++) for (let x = 0; x < cw; x++) if (on(x, y)) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  const hgt = y1 - y0 + 1, cov = [];
+  for (let x = x0; x <= x1; x++) { let c = 0; for (let y = y0; y <= y1; y++) if (on(x, y)) c++; cov.push(c / hgt); }
+  let stem = null;
+  for (const th of [0.97, 0.9, 0.8, 0.7, 0.6, 0.5]) {
+    const runs = []; let s = -1;
+    for (let i = 0; i <= cov.length; i++) { const ok = i < cov.length && cov[i] >= th; if (ok && s < 0) s = i; if (!ok && s >= 0) { runs.push([s, i - 1]); s = -1; } }
+    if (!runs.length) continue;
+    const mw = Math.max(...runs.map(r => r[1] - r[0]));
+    const run = runs.find(r => r[1] - r[0] >= mw * 0.7);
+    const a = x0 + run[0] + 2, b = x0 + run[1] - 2;
+    // maior trecho vertical contínuo escuro em todas as colunas da haste, passando pelo meio
+    const mid = Math.round((y0 + y1) / 2), full = y => { for (let x = a; x <= b; x++) if (!on(x, y)) return false; return true; };
+    if (!full(mid)) continue;
+    let ya = mid, yb = mid; while (ya > y0 && full(ya - 1)) ya--; while (yb < y1 && full(yb + 1)) yb++;
+    stem = { x: a - pad, y: ya + 1 - base, w: b - a, h: yb - ya - 2 };
+    break;
+  }
+  if (!stem || stem.w < (x1 - x0) * 0.16) {
+    // faixa vertical mais alta: janela de 22% da largura que desliza pela letra
+    const mid = Math.round((y0 + y1) / 2), ww = Math.max(6, Math.round((x1 - x0) * 0.22));
+    let best = null;
+    for (let a = x0; a + ww <= x1; a++) {
+      const full = y => { for (let x = a; x <= a + ww; x++) if (!on(x, y)) return false; return true; };
+      for (const y of [mid, Math.round(y0 + (y1 - y0) * 0.35), Math.round(y0 + (y1 - y0) * 0.65)]) {
+        if (!full(y)) continue; let ya = y, yb = y; while (ya > y0 && full(ya - 1)) ya--; while (yb < y1 && full(yb + 1)) yb++;
+        if (!best || yb - ya > best.h) best = { x: a + 1, y: ya + 1, w: ww - 2, h: yb - ya - 2 };
+      }
+    }
+    if (best) stem = { x: best.x - pad, y: best.y - base, w: best.w, h: best.h };
+  }
+  return { adv, bbox: { x: x0 - pad, y: y0 - base, w: x1 - x0 + 1, h: hgt }, stem };
+}
+// palavra = grupo com uma <text> por letra, cada uma com seu clipPath
+let uid = 0;
+function makeWord(text, size, fill, parent = root) {
+  const g = el('g', {}, parent), letters = []; let x = 0;
+  for (const ch of text) {
+    const m = measure(ch, size);
+    if (m.bbox) {
+      const id = 'c' + (uid++), cp = el('clipPath', { id, clipPathUnits: 'userSpaceOnUse' }, defs), cr = el('rect', {}, cp);
+      const te = el('text', { x, y: 0, 'font-size': size, fill, 'clip-path': `url(#${id})` }, g); te.textContent = ch;
+      const pad = 30, pv = 10, full = { x: x + m.bbox.x - pad, y: m.bbox.y - pv, w: m.bbox.w + pad * 2, h: m.bbox.h + pv * 2, r: 0 };
+      const st = m.stem ? { x: x + m.stem.x, y: m.stem.y, w: m.stem.w, h: m.stem.h, r: m.stem.w / 2 } : { x: x + m.bbox.x + m.bbox.w * 0.4, y: m.bbox.y, w: m.bbox.w * 0.2, h: m.bbox.h, r: m.bbox.w * 0.1 };
+      letters.push({ ch, te, cr, x, adv: m.adv, bbox: { x: x + m.bbox.x, y: m.bbox.y, w: m.bbox.w, h: m.bbox.h }, full, stem: st });
+      setRect(cr, full);
+    }
+    x += m.adv;
+  }
+  const left = Math.min(...letters.map(l => l.bbox.x)), right = Math.max(...letters.map(l => l.bbox.x + l.bbox.w));
+  const top = Math.min(...letters.map(l => l.bbox.y)), bot = Math.max(...letters.map(l => l.bbox.y + l.bbox.h));
+  return { g, letters, left, right, vw: right - left, top, bot, capH: bot - top };
+}
+// coloca a palavra: centro visual em (cx, cy), escalas sx, sy
+function place(wd, sx, sy, cx, cy) {
+  const tx = cx - sx * (wd.left + wd.vw / 2), ty = cy - sy * (wd.top + wd.capH / 2);
+  wd.g.setAttribute('transform', `translate(${tx} ${ty}) scale(${sx} ${sy})`);
+  return { map: (r) => ({ x: tx + sx * r.x, y: ty + sy * r.y, w: sx * r.w, h: sy * r.h, r: Math.min(sx * r.w, sy * r.h) / 2 }), tx, ty, sx, sy };
+}
+const sizeFor = (text, width) => { cx2.font = '100px CC'; return 100 * width / cx2.measureText(text).width; };
+function plainText(str, size, fill, anchor = 'middle', parent = root) { const te = el('text', { 'font-size': size, fill, 'text-anchor': anchor }, parent); te.textContent = str; return te; }
+
+// ---------- polígonos para o morph ----------
+const NP = 240;
+function samplePath(d, tf) {
+  const p = el('path', { d }, defs), len = p.getTotalLength(), pts = [];
+  for (let i = 0; i < NP; i++) { const q = p.getPointAtLength(len * i / NP); pts.push(tf(q.x, q.y)); }
+  p.remove();
+  // começa no ponto mais alto perto do centro, sentido horário
+  let area = 0; for (let i = 0; i < NP; i++) { const a = pts[i], b = pts[(i + 1) % NP]; area += a[0] * b[1] - b[0] * a[1]; }
+  if (area < 0) pts.reverse();
+  let best = 0, bd = 1e9; for (let i = 0; i < NP; i++) { const dd = Math.abs(pts[i][0] - CX) + Math.max(0, pts[i][1] - CY) * 0 + (pts[i][1]) * 0.001; const ang = Math.abs(Math.atan2(pts[i][0] - CX, CY - pts[i][1])); if (ang < bd) { bd = ang; best = i; } }
+  return pts.slice(best).concat(pts.slice(0, best));
+}
+const polyStr = pts => pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+const lerpPoly = (a, b, k) => a.map((p, i) => [lerp(p[0], b[i][0], k), lerp(p[1], b[i][1], k)]);
+const rrPath = (x, y, w, h, r) => `M${x + r} ${y} H${x + w - r} A${r} ${r} 0 0 1 ${x + w} ${y + r} V${y + h - r} A${r} ${r} 0 0 1 ${x + w - r} ${y + h} H${x + r} A${r} ${r} 0 0 1 ${x} ${y + h - r} V${y + r} A${r} ${r} 0 0 1 ${x + r} ${y} Z`;
+const HG = 'M100 24 H150 Q166 24 157 38 L107 106 Q103 110 107 114 L157 182 Q166 196 150 196 H50 Q34 196 43 182 L93 114 Q97 110 93 106 L43 38 Q34 24 50 24 Z';
+const KH = 2.7; // escala do Limitinho no morph
+
+// ---------- construção da cena ----------
+const S = {};
+async function build() {
+  await document.fonts.load('100px CC'); await document.fonts.ready;
+  const img = document.getElementById('capi'); if (!img.complete) await new Promise(r => img.onload = r);
+
+  // camada 0: mundos do compasso 6 (fundo + palavra gigante), atrás de tudo
+  S.worlds = [];
+  S.stripes = []; for (let i = 0; i < 8; i++) S.stripes.push(el('polygon', { fill: L }));
+  S.wBase = el('rect', { x: 0, y: 0, width: W, height: H, fill: L });
+  const wdefs = [{ t0: 10.5, bg: F, word: 'RESET', wc: RC, dir: 'up' }, { t0: 11.0, bg: L, word: 'CALMA', wc: F, dir: 'left' }, { t0: 11.5, bg: F, word: 'CALMA', wc: L, dir: 'down' }];
+  for (const w of wdefs) {
+    const id = 'w' + (uid++), cp = el('clipPath', { id }, defs), cr = el('rect', {}, cp);
+    const g = el('g', { 'clip-path': `url(#${id})` });
+    el('rect', { x: 0, y: 0, width: W, height: H, fill: w.bg }, g);
+    const fb = mkBlur('fw' + uid), wg = el('g', { filter: `url(#fw${uid})` }, g);
+    const wd = makeWord(w.word, sizeFor(w.word, 1640), w.wc, wg);
+    S.worlds.push({ ...w, cr, g, wd, fb });
+  }
+
+  // compasso 1-2: palavras
+  S.dripG = el('g'); S.drips = []; for (let i = 0; i < 5; i++) S.drips.push(el('rect', { fill: L }, S.dripG));
+  const SP = sizeFor('PROMPT', 1240);
+  S.fbP = mkBlur('fbP'); S.fbR = mkBlur('fbR');
+  S.gP = el('g', { filter: 'url(#fbP)' }); S.gR = el('g', { filter: 'url(#fbR)' });
+  S.P = makeWord('PROMPT', SP, L, S.gP); S.R = makeWord('RESTO', SP, L, S.gR);
+  S.capH = S.P.capH;
+  // conectores (mesma fonte, menor) dentro de uma faixa de corte
+  const cid = 'cb' + (uid++), ccp = el('clipPath', { id: cid }, defs); S.conBand = el('rect', {}, ccp);
+  S.fbC = mkBlur('fbC');
+  S.conG = el('g', { 'clip-path': `url(#${cid})` }); const cg2 = el('g', { filter: 'url(#fbC)' }, S.conG);
+  S.conA = plainText('EU SÓ ESCREVO O', 52, T, 'middle', cg2); S.conB = plainText('E ELE FAZ O', 52, T, 'middle', cg2);
+
+  // pílulas soltas (gancho e final)
+  S.pills = []; for (let i = 0; i < 12; i++) S.pills.push(el('rect', { fill: L }));
+
+  // compasso 3: morph
+  S.morph = el('polygon', { fill: L });
+  const tfH = (x, y) => [CX + (x - 100) * KH, CY + (y - 110) * KH];
+  S.polyCircle = samplePath(rrPath(CX - 170, CY - 170, 340, 340, 170), (x, y) => [x, y]);
+  S.polyPill = samplePath(rrPath(CX - 130, CY - 235, 260, 470, 130), (x, y) => [x, y]);
+  S.polyHG = samplePath(HG, tfH);
+
+  // Limitinho (folha v2, em vetor)
+  S.lim = el('g'); const lclip = 'lc' + (uid++), lcp = el('clipPath', { id: lclip }, defs); el('path', { d: HG }, lcp);
+  S.fbL = mkBlur('fbL'); const limIn = el('g', { filter: 'url(#fbL)' }, S.lim); S.limRot = el('g', {}, limIn);
+  const lf = el('g', { 'clip-path': `url(#${lclip})` }, S.limRot);
+  el('rect', { x: 0, y: 0, width: 200, height: 220, fill: L }, lf);
+  S.limTop = el('rect', { x: 0, y: 0, width: 200, height: 0 }, lf);
+  S.limTopGap = el('rect', { x: 0, y: 110, width: 200, height: 0, fill: F }, lf);
+  S.limBot = el('rect', { x: 0, y: 110, width: 200, height: 0, fill: F }, lf);
+  S.limStream = el('rect', { x: 96, y: 104, width: 8, height: 0, fill: L }, lf);
+  el('path', { d: HG, fill: 'none', stroke: K, 'stroke-width': 7, 'stroke-linejoin': 'round' }, S.limRot);
+  const face = (inner) => { const g = el('g', {}, S.limRot); g.innerHTML = inner; return g; };
+  S.faceCalm = face(`<circle cx="82" cy="52" r="5.5" fill="#000"/><circle cx="118" cy="52" r="5.5" fill="#000"/><path d="M92 60 Q100 68 108 60" stroke="#000" stroke-width="5" stroke-linecap="round" fill="none"/>`);
+  S.faceWarn = face(`<path d="M74 48 L88 42 M126 48 L112 42" stroke="#000" stroke-width="5" stroke-linecap="round" fill="none"/><circle cx="82" cy="54" r="5.5" fill="#000"/><circle cx="118" cy="54" r="5.5" fill="#000"/><path d="M93 70 Q100 63 107 70" stroke="#000" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M140 30 Q132 44 136 50 Q140 55 144 50 Q148 44 140 30 Z" fill="${T}" stroke="#000" stroke-width="4" stroke-linejoin="round"/>`);
+  S.faceDone = face(`<path d="M74 52 H90 M110 52 H126 M94 64 H106" stroke="#000" stroke-width="5" stroke-linecap="round" fill="none"/>`);
+  // na versão "tecido preto" o contorno some; no fundo roxo-escuro ele precisa de um respiro claro
+  // (fica como está: contorno é regra da marca e as cores chapadas já separam a silhueta)
+
+  // compasso 4: painel de uso
+  S.card = el('path', { d: rrPath(900, 190, 820, 700, 32), fill: 'none', stroke: RC, 'stroke-width': 4 });
+  S.cardLen = S.card.getTotalLength(); S.card.setAttribute('stroke-dasharray', `${S.cardLen} ${S.cardLen}`);
+  const bid = 'ub' + (uid++), bcp = el('clipPath', { id: bid }, defs); el('rect', { x: 900, y: 200, width: 820, height: 160 }, bcp);
+  S.uiTop = el('g', { 'clip-path': `url(#${bid})` }); S.fbU = mkBlur('fbU'); const ut = el('g', { filter: 'url(#fbU)' }, S.uiTop);
+  S.label = plainText('LIMITE', 40, T, 'start', ut); set(S.label, { x: 960 });
+  S.counter = plainText('100%', 100, L, 'end', ut); set(S.counter, { x: 1660 });
+  const pid = 'pb' + (uid++), pcp = el('clipPath', { id: pid }, defs); el('rect', { x: 900, y: 760, width: 820, height: 110 }, pcp);
+  S.uiBot = el('g', { 'clip-path': `url(#${pid})` }); S.uiBotIn = el('g', {}, S.uiBot);
+  S.track = el('rect', { x: 960, y: 790, width: 700, height: 44, rx: 22, fill: 'none', stroke: R, 'stroke-width': 3 }, S.uiBotIn);
+  S.fill = el('rect', { x: 960, y: 790, height: 44, fill: L }, S.uiBotIn);
+  S.bars2d = []; for (let i = 0; i < 8; i++) S.bars2d.push(el('rect', { fill: RC }));
+
+  // compasso 5: gráfico 3D (projeção própria, pintor)
+  S.faces = []; for (let i = 0; i < 48; i++) S.faces.push(el('polygon', {}));
+
+  // compasso 8: título
+  S.title = makeWord('CRAUDIO CREW', sizeFor('CRAUDIO CREW', 1560), L);
+
+  // compasso 7: cilindro de palavras (CSS 3D, capivara no meio)
+  S.ring = document.getElementById('ring'); S.capi = img;
+  S.cylWords = ['PROMPT', 'RESTO', 'CALMA', 'RESET', 'LIMITE'];
+  const PS = sizeFor('PROMPT', 600);
+  S.panels = S.cylWords.map(w => { const d = document.createElement('div'); d.className = 'panel'; d.style.fontSize = PS + 'px'; d.innerHTML = `<span>${w}</span>`; S.ring.insertBefore(d, img); return d; });
+  S.l3d = document.getElementById('l3d');
+
+  // geometria compartilhada
+  S.pill0 = { x: CX - 45, y: CY - 130, w: 90, h: 260, r: 45 };
+  S.barX = 960; S.barW = 58; S.barGap = (700 - 8 * 58) / 7; S.base = 720; S.maxH = 330;
+  S.data1 = [0.5, 0.78, 0.62, 0.92, 0.7, 0.84, 0.45, 0.66];
+  S.data2 = [0.9, 0.55, 0.8, 0.6, 0.95, 0.5, 0.75, 0.65];
+}
+
+// ---------- estados contínuos (funções do tempo) ----------
+// PROMPT / RESTO
+const syWord = t => t < 2 ? 1 : 1 + 0.3 * spr(t - 2.0);
+const scRESTO = t => 1 + 0.42 * eo(seg(t, 3.0, 0.4));
+const ROLL = () => S.capH * 1.35;
+const rollP = (t, i) => -ROLL() * eio(seg(t, 2.5 + 0.03 * i, 0.32));
+const rollR = (t, i) => ROLL() * (1 - eio(seg(t, 2.55 + 0.03 * i, 0.32)));
+const conAx = t => -520 * (1 - eo(seg(t, 2.0, 0.38)));
+const conAy = t => -90 * eio(seg(t, 2.5, 0.3));
+const conBy = t => 90 * (1 - eio(seg(t, 2.55, 0.3))) - 90 * eio(seg(t, 3.0, 0.26));
+// Limitinho
+function limState(t) {
+  const s = { x: CX, y: CY, k: KH, rot: 0, a: 24, topRoxo: true, c: 110, b: 110, stream: false, face: null, pop: 0 };
+  // compasso 3: nasce do morph
+  s.a = lerp(24, 64, eo(seg(t, 5.5, 0.35))); s.b = lerp(110, 150, eo(seg(t, 5.55, 0.35))); s.stream = t > 5.58;
+  s.face = 'calm'; s.pop = spr(t - 5.62);
+  // compasso 4: vai para o lado e esvazia
+  const m = eo(seg(t, 6.0, 0.45)); s.x = lerp(CX, 520, m); s.k = lerp(KH, 2.3, m);
+  if (t >= 6.5) { const q = eo(seg(t, 6.5, 0.3)); s.a = lerp(64, 76, q); s.b = lerp(150, 144, q); }
+  if (t >= 7.0) { const q = eo(seg(t, 7.0, 0.3)); s.a = lerp(76, 92, q); s.b = lerp(144, 134, q); s.face = 'warn'; s.pop = spr(t - 7.0, 4); }
+  if (t >= 7.5) { const q = eo(seg(t, 7.5, 0.3)); s.topRoxo = false; s.a = 110; s.b = lerp(134, 118, q); s.stream = q < 0.6; s.face = 'done'; s.pop = spr(t - 7.5, 4); }
+  // compasso 5: RESET, a ampulheta vira
+  if (t >= 8.0) {
+    s.rot = 180 * eio(seg(t, 8.0, 0.4));
+    if (t >= 8.4) { s.rot = 0; s.topRoxo = false; s.a = 24; s.c = 102 + 8 * 0; s.b = 200; s.stream = false; s.face = 'calm'; s.pop = spr(t - 8.4, 4); }
+    s.y = CY + 950 * ei(seg(t, 8.5, 0.22));
+  }
+  return s;
+}
+const limY = t => limState(t).y;
+const counterVal = t => {
+  let v = 100 * eo(seg(t, 6.0, 0.4));
+  v = lerp(v, 70, eo(seg(t, 6.5, 0.3))); v = lerp(v, 35, eo(seg(t, 7.0, 0.3))); v = lerp(v, 0, eo(seg(t, 7.5, 0.3)));
+  return lerp(v, 100, eo(seg(t, 8.0, 0.4)));
+};
+const uiTopY = t => 140 * (1 - eo(seg(t, 6.05, 0.4))) - 420 * ei(seg(t, 8.5, 0.32));
+const uiBotY = t => 110 * (1 - eo(seg(t, 6.1, 0.4))) + 420 * ei(seg(t, 8.52, 0.32));
+// gráfico 3D
+function chartState(t) {
+  const c = { yaw: 0, pitch: 0, px: 1310, py: 720, s: 1, hs: S.data1.map((d, i) => d * S.maxH * eo(seg(t, 6.5 + 0.035 * i, 0.35))) };
+  const a = eo(seg(t, 8.5, 0.42)); c.yaw = -38 * a; c.pitch = 24 * a; c.px = lerp(1310, 960, a); c.py = lerp(720, 760, a); c.s = lerp(1, 1.3, a);
+  const b = eio(seg(t, 9.0, 0.45)); c.yaw = lerp(c.yaw, 32, b); c.pitch = lerp(c.pitch, 30, b);
+  c.hs = c.hs.map((h, i) => lerp(h, S.data2[i] * S.maxH, eio(seg(t, 9.0 + 0.03 * i, 0.38))));
+  const d = eio(seg(t, 9.5, 0.42)); c.yaw = lerp(c.yaw, 0, d); c.pitch = lerp(c.pitch, 90, d); c.s = lerp(c.s, 1.9, d);
+  c.py = lerp(c.py, 540 + 29 * 1.9, d);
+  c.hs = c.hs.map((h, i) => lerp(h, 0.6 * S.maxH, eio(seg(t, 9.5 + 0.02 * i, 0.38))));
+  return c;
+}
+function project(c) {
+  const f = 2600, cy = Math.cos(c.yaw * Math.PI / 180), sy = Math.sin(c.yaw * Math.PI / 180), cp = Math.cos(c.pitch * Math.PI / 180), sp = Math.sin(c.pitch * Math.PI / 180);
+  const P = (x, y, z) => { const x1 = x * cy + z * sy, z1 = -x * sy + z * cy, y2 = y * cp - z1 * sp, z2 = y * sp + z1 * cp; const k = f / (f - z2 * c.s); return { X: c.px + x1 * c.s * k, Y: c.py - y2 * c.s * k, z: z2, x1, y2 }; };
+  const out = [];
+  for (let i = 0; i < 8; i++) {
+    const x0 = S.barX + i * (S.barW + S.barGap) - 1310, x1 = x0 + S.barW, h = Math.max(0.5, c.hs[i]), z0 = -S.barW, z1 = 0;
+    const v = (x, y, z) => P(x, y, z);
+    const fs = [
+      { pts: [v(x0, 0, z1), v(x1, 0, z1), v(x1, h, z1), v(x0, h, z1)], n: [0, 0, 1], col: RC, top: false },
+      { pts: [v(x0, 0, z0), v(x1, 0, z0), v(x1, h, z0), v(x0, h, z0)], n: [0, 0, -1], col: RC },
+      { pts: [v(x0, 0, z0), v(x0, 0, z1), v(x0, h, z1), v(x0, h, z0)], n: [-1, 0, 0], col: R },
+      { pts: [v(x1, 0, z0), v(x1, 0, z1), v(x1, h, z1), v(x1, h, z0)], n: [1, 0, 0], col: R },
+      { pts: [v(x0, h, z0), v(x1, h, z0), v(x1, h, z1), v(x0, h, z1)], n: [0, 1, 0], col: L, top: i },
+    ];
+    for (const fc of fs) {
+      // normal girada e teste de visibilidade contra a câmera
+      const [nx, ny, nz] = fc.n, nx1 = nx * cy + nz * sy, nz1 = -nx * sy + nz * cy, ny2 = ny * cp - nz1 * sp, nz2 = ny * sp + nz1 * cp;
+      const cxm = fc.pts.reduce((a, p) => a + p.x1, 0) / 4, cym = fc.pts.reduce((a, p) => a + p.y2, 0) / 4, czm = fc.pts.reduce((a, p) => a + p.z, 0) / 4;
+      const dot = nx1 * (0 - cxm) + ny2 * (0 - cym) + nz2 * (f / c.s - czm);
+      if (dot > 1e-3) out.push({ ...fc, depth: czm });
+    }
+  }
+  out.sort((a, b) => a.depth - b.depth);
+  return out;
+}
+
+// ---------- seek: desenha o quadro do instante t ----------
+function seek(tIn) {
+  const t = ((tIn % DUR) + DUR) % DUR;
+  const all = [S.wBase, ...S.stripes, ...S.worlds.map(w => w.g), S.dripG, S.gP, S.gR, S.conG, ...S.pills, S.morph, S.lim, S.card, S.uiTop, S.uiBot, ...S.bars2d, ...S.faces, S.title.g];
+  all.forEach(e => show(e, false));
+  S.l3d.style.display = 'none';
+
+  // ===== compasso 1: gancho (0–2 s) e final (14,72–15 s): pílulas =====
+  if (t < 1.5 || t >= 14.72) {
+    let rects = [];
+    if (t < 0.5) { const h = lerp(260, 560, spr(t)); rects = [{ x: CX - 45, y: CY - h / 2, w: 90, h, r: 45 }]; }
+    else if (t < 1.0) { const k = eio(seg(t, 0.5, 0.42)), vw = S.P.vw; rects = [lr({ x: CX - 45, y: CY - 280, w: 90, h: 560, r: 45 }, { x: CX - vw / 2, y: CY - 45, w: vw, h: 90, r: 45 }, k)]; }
+    else if (t < 1.5) {
+      const pl = place(S.P, 1, 1, CX, CY), vw = S.P.vw, n = S.P.letters.length;
+      rects = S.P.letters.map((l, i) => lr({ x: CX - vw / 2 + i * vw / n + 8, y: CY - 45, w: vw / n - 16, h: 90, r: 45 }, pl.map(l.stem), eo(seg(t, 1.0 + 0.03 * i, 0.38))));
+    } else {
+      const pl = place(S.title, 1, 1.3, CX, 760);
+      rects = S.title.letters.map(l => lr(pl.map(l.stem), S.pill0, eio(seg(t, 14.72, 0.28))));
+    }
+    rects.forEach((r, i) => { show(S.pills[i], true); setRect(S.pills[i], r); });
+  }
+  // ===== compasso 1-2: PROMPT =====
+  if (t >= 1.5 && t < 3.0) {
+    show(S.gP, true);
+    const pl = place(S.P, 1, syWord(t), CX, CY);
+    S.P.letters.forEach((l, i) => {
+      const k = eo(seg(t, 1.5 + 0.035 * i, 0.34));
+      setRect(l.cr, lr(l.stem, l.full, k));
+      l.te.setAttribute('y', rollP(t, i));
+    });
+    blur(S.fbP, 0, vel(tt => rollP(tt, 2), t) * pl.sy);
+  }
+  // ===== compasso 2: conectores =====
+  if (t >= 2.0 && t < 3.27) {
+    show(S.conG, true);
+    const sy = syWord(t), lineY = CY - sy * S.capH / 2 - 46;
+    set(S.conBand, { x: 0, y: lineY - 60, width: W, height: 74 });
+    set(S.conA, { x: CX + conAx(t), y: lineY + conAy(t) });
+    set(S.conB, { x: CX, y: lineY + conBy(t) });
+    show(S.conB, t >= 2.55);
+    blur(S.fbC, vel(conAx, t), vel(t < 2.55 ? conAy : conBy, t));
+  }
+  // ===== compasso 2-3: RESTO, derrete e pinga =====
+  if (t >= 2.55 && t < 4.4) {
+    show(S.gR, true);
+    const sc = scRESTO(t), pl = place(S.R, sc, syWord(t) * sc, CX, CY);
+    const year = 1979 + 40 * eio(seg(t, 3.5, 0.45));
+    S.R.letters.forEach((l, i) => {
+      l.te.setAttribute('y', rollR(t, i));
+      l.te.style.fontVariationSettings = `"YEAR" ${year.toFixed(1)}`;
+      const dr = eio(seg(t, 4.0 + 0.015 * i, 0.24)); // as letras escorrem para dentro dos pingos
+      const f = l.full; setRect(l.cr, { x: f.x, y: lerp(f.y, f.y + f.h - 20, dr), w: f.w, h: f.h * (1 - dr), r: 0 });
+    });
+    blur(S.fbR, 0, vel(tt => rollR(tt, 2), t) * pl.sy);
+    // pingos
+    if (t >= 3.5) {
+      show(S.dripG, true);
+      S.R.letters.forEach((l, i) => {
+        const st = pl.map(l.stem), w = st.w * 0.62, bottom = st.y + st.h;
+        const len = (130 + 50 * (i % 2)) * eo(seg(t, 3.55 + 0.04 * i, 0.4)) + 60 * eio(seg(t, 4.0, 0.12));
+        const drip = { x: st.x + st.w / 2 - w / 2, y: bottom - 30, w, h: 30 + len, r: w / 2 };
+        const circ = { x: CX - 170, y: CY - 170, w: 340, h: 340, r: 170 };
+        setRect(S.drips[i], lr(drip, circ, eio(seg(t, 4.1 + 0.015 * i, 0.34))));
+      });
+    }
+  }
+  // ===== compasso 3: morph círculo → pílula → ampulheta =====
+  if (t >= 4.4 && t < 5.5) {
+    show(S.morph, true);
+    let p = S.polyCircle;
+    if (t >= 4.5) p = lerpPoly(S.polyCircle, S.polyPill, eo(seg(t, 4.5, 0.42)));
+    if (t >= 5.0) p = lerpPoly(S.polyPill, S.polyHG, eo(seg(t, 5.0, 0.42)));
+    S.morph.setAttribute('points', polyStr(p));
+  }
+  // ===== compasso 3-5: Limitinho =====
+  if (t >= 5.5 && t < 8.9) {
+    show(S.lim, true);
+    const s = limState(t);
+    S.lim.setAttribute('transform', `translate(${s.x} ${s.y}) scale(${s.k}) translate(-100 -110)`);
+    S.limRot.setAttribute('transform', `rotate(${s.rot} 100 110)`);
+    set(S.limTop, { height: s.a, fill: s.topRoxo ? R : F });
+    set(S.limTopGap, { y: s.c, height: 110 - s.c });
+    set(S.limBot, { height: s.b - 110 });
+    set(S.limStream, { height: s.stream ? Math.max(0, s.b - 104) : 0 });
+    for (const [nm, g] of [['calm', S.faceCalm], ['warn', S.faceWarn], ['done', S.faceDone]]) {
+      show(g, s.face === nm);
+      const fy = s.rot === 0 && t >= 8.4 ? 46 : 0; // depois do RESET o rosto mora na areia de cima
+      const sc = 0.0001 + s.pop;
+      g.setAttribute('transform', `translate(100 ${52 + fy}) scale(${sc}) translate(-100 -52)`);
+    }
+    blur(S.fbL, 0, Math.min(2500, vel(limY, t)) / s.k);
+  }
+  // ===== compasso 4: painel =====
+  if (t >= 6.0 && t < 8.9) {
+    show(S.card, true);
+    const drawK = eo(seg(t, 6.0, 0.38)) * (1 - eio(seg(t, 8.5, 0.36)));
+    S.card.setAttribute('stroke-dashoffset', S.cardLen * (1 - drawK));
+    show(S.uiTop, true); show(S.uiBot, true);
+    const yT = uiTopY(t);
+    set(S.label, { y: 290 + yT }); set(S.counter, { y: 330 + yT });
+    S.label.style.fontVariationSettings = `"YEAR" ${(1979 + 40 * eio(seg(t, 7.5, 0.35)) - 40 * eio(seg(t, 8.0, 0.35))).toFixed(1)}`;
+    S.counter.textContent = Math.round(counterVal(t)) + '%';
+    blur(S.fbU, 0, vel(uiTopY, t));
+    S.uiBotIn.setAttribute('transform', `translate(0 ${uiBotY(t)})`);
+    const fw = 700 * counterVal(t) / 100; set(S.fill, { width: Math.max(0, fw), rx: Math.min(22, fw / 2) });
+  }
+  // gráfico 2D (6,5–8,5) → 3D (8,5–10)
+  if (t >= 6.5 && t < 8.5) {
+    const c = chartState(t);
+    S.bars2d.forEach((b, i) => { show(b, true); const h = c.hs[i]; set(b, { x: S.barX + i * (S.barW + S.barGap), y: S.base - h, width: S.barW, height: Math.max(0, h) }); });
+  }
+  if (t >= 8.5 && t < 10.0) {
+    const fs = project(chartState(t));
+    fs.forEach((fc, i) => { const e = S.faces[i]; show(e, true); set(e, { points: fc.pts.map(p => p.X.toFixed(1) + ',' + p.Y.toFixed(1)).join(' '), fill: fc.col }); });
+  }
+  // ===== compasso 6: topos viram faixas, a capivara chega, o mundo troca a cada batida =====
+  if (t >= 10.0 && t < 12.0) {
+    if (t < 10.5) {
+      const tops = project(chartState(9.999)).filter(f => f.top !== false && f.top !== undefined).sort((a, b) => a.top - b.top);
+      tops.forEach((fc, i) => {
+        const xs = fc.pts.map(p => p.X), ys = fc.pts.map(p => p.Y);
+        const src = { x: Math.min(...xs), y: Math.min(...ys), w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys), r: 0 };
+        const r = lr(src, { x: i * 240 - 1, y: 0, w: 242, h: H, r: 0 }, eio(seg(t, 10.0 + 0.015 * i, 0.36)));
+        show(S.stripes[i], true); set(S.stripes[i], { points: `${r.x},${r.y} ${r.x + r.w},${r.y} ${r.x + r.w},${r.y + r.h} ${r.x},${r.y + r.h}` });
+      });
+    } else show(S.wBase, true);
+    for (const w of S.worlds) {
+      if (t < w.t0) continue;
+      show(w.g, true);
+      const k = eo(seg(t, w.t0, 0.32));
+      const kk = tt => eo(seg(tt, w.t0, 0.32));
+      let r, ox = 0, oy = 0;
+      if (w.dir === 'up') { r = { x: 0, y: H * (1 - k), width: W, height: H * k }; oy = 320 * (1 - k); }
+      if (w.dir === 'left') { r = { x: W * (1 - k), y: 0, width: W * k, height: H }; ox = 420 * (1 - k); }
+      if (w.dir === 'down') { r = { x: 0, y: 0, width: W, height: H * k }; oy = -320 * (1 - k); }
+      set(w.cr, r);
+      const push = 1 + 0.06 * seg(t, w.t0, 0.5);
+      let sc = push, cx = CX + ox, cy = 500 + oy, year = 1979;
+      if (w.t0 === 11.5) { year = 1979 + 40 * eio(seg(t, 11.55, 0.35)); const s2 = ei(seg(t, 11.72, 0.28)); sc *= (1 - s2) + 0.0001; cx = lerp(cx, CX, s2); cy = lerp(cy, 600, s2); }
+      place(w.wd, sc, 1.3 * sc, cx, cy);
+      w.wd.letters.forEach(l => l.te.style.fontVariationSettings = `"YEAR" ${year.toFixed(1)}`);
+      const dk = vel(kk, t); blur(w.fb, w.dir === 'left' ? dk * 420 : 0, w.dir !== 'left' ? dk * 320 : 0);
+    }
+  }
+  // ===== capivara + cilindro (10–15 s) =====
+  if (t >= 10.0 && t < 14.8) {
+    S.l3d.style.display = '';
+    const R0 = 600 * spr(t - 12.0) * (1 - ei(seg(t, 13.72, 0.28)));
+    const yaw = -220 * (1 - eo(seg(t, 12.0, 0.5))) + 72 * (eo(seg(t, 12.5, 0.34)) + eo(seg(t, 13.0, 0.34)) + eo(seg(t, 13.5, 0.34)));
+    const tilt = -27 + 4 * eio(seg(t, 12.5, 0.36)) - 4 * eio(seg(t, 13.0, 0.36)) + 3 * eio(seg(t, 13.5, 0.36));
+    const cyl = t >= 12.0 && t < 14.0;
+    S.ring.style.transform = cyl ? `rotateX(${tilt}deg) rotateY(${yaw}deg)` : 'none';
+    S.panels.forEach((p, i) => {
+      p.style.display = cyl ? '' : 'none'; if (!cyl) return;
+      const a = i * 72, face = Math.cos((a + yaw) * Math.PI / 180);
+      const ps = Math.max(0.0001, 1 - ei(seg(t, 13.72, 0.28))) * (0.2 + 0.8 * eo(seg(t, 12.0, 0.3)));
+      p.style.color = face > 0 ? L : R;
+      p.style.transform = `rotateY(${a}deg) translateZ(${R0}px) scale(${ps}) translate(-50%, -50%)`;
+    });
+    // a capivara: nasce em 10,05, fica parada no centro, sobe no título e entra na pílula
+    let cs = spr(t - 10.05, 2.8), dx = 0, dy = 0;
+    const up = eo(seg(t, 14.0, 0.36)); cs *= lerp(1, 0.5, up); dy = lerp(0, -250, up);
+    const out = ei(seg(t, 14.5, 0.3)); cs *= 1 - out; dy = lerp(dy, -60, out);
+    const counter = cyl ? `rotateY(${-yaw}deg) rotateX(${-tilt}deg) ` : '';
+    S.capi.style.transform = `${counter}translate(${dx}px, ${dy}px) scale(${Math.max(0.0001, cs)})`;
+  }
+  // ===== compasso 8: título =====
+  if (t >= 14.0 && t < 14.72) {
+    show(S.title.g, true);
+    place(S.title, 1, 1.3, CX, 760);
+    S.title.letters.forEach((l, i) => {
+      const dot = { x: l.stem.x, y: l.stem.y + l.stem.h / 2 - l.stem.w / 2, w: l.stem.w, h: l.stem.w, r: l.stem.w / 2 };
+      let r = lr(dot, l.full, eo(seg(t, 14.0 + 0.018 * i, 0.3)));
+      r = lr(r, l.stem, ei(seg(t, 14.5 + 0.006 * i, 0.15)));
+      setRect(l.cr, r);
+    });
+  }
+}
+window.seek = seek;
+window.ready = build().then(() => { seek(0); return true; });
+</script>
+</body>
+</html>
