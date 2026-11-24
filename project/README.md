@@ -162,10 +162,10 @@ Resolvido na v3:
 - Prova em silk dos chapados: adiada, fica para quando a primeira tiragem for para a gráfica.
 - Referências do Instagram: fora desta rodada.
 - Versão viva dos quatro cenários e do Fluido Gloss gerada no Flow e aprovada (grupo Cenarios nos assets). As prévias dos componentes de Cenário agora mostram essas imagens.
+- Código vivo refeito sem nada legível (prompt com cores por nome, em chat novo). Regra para todo prompt de cenário: nunca escrever código hexadecimal quando o modelo puder desenhar texto.
 
 Continua aberto:
 
 - Prova em silk dos chapados no tecido preto (adiada, junto com a primeira tiragem).
-- Gerar de novo o Código, em chat novo do Flow, com o prompt v3 sem códigos de cor (Prompts e aplicações). O ajuste em cima da imagem antiga não funcionou e espalhou símbolos de código nos outros cenários: as versões vivas aprovadas continuam as primeiras.
 - Refinar o traço da capivara em vetor num editor (Illustrator ou Figma) antes de usar grande em impressão.
 - Testar a linha de campanha inspirada no pôster editorial: pessoa sem rosto visível de moletom Craudio Crew, palavra gigante atrás, céu ou chão de cenário.

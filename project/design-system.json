@@ -222,9 +222,9 @@
           "type": "image/jpeg"
         },
         "vivo-codigo.jpg": {
-          "blob": "c55adf6ebe6f08a91e543265ebc3e03a",
+          "blob": "627cb827fbb18914746c1b9e1c2dce78",
           "name": "vivo-codigo.jpg",
-          "size": 421180,
+          "size": 458187,
           "type": "image/jpeg"
         }
       }
@@ -245,10 +245,10 @@
     "Referencias"
   ],
   "lastChange": {
-    "at": "2026-11-24T01:40:00Z",
+    "at": "2026-11-24T02:10:00Z",
     "by": "Gabriel",
     "via": "Claude",
-    "note": "Versão viva dos quatro cenários e do Fluido Gloss, gerada no Flow, entra no grupo Cenarios e nas prévias dos componentes."
+    "note": "Código vivo refeito com o prompt sem códigos de cor: nada legível na onda."
   },
   "layout": "files",
   "libraries": [],
