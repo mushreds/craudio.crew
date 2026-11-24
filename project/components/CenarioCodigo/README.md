@@ -10,7 +10,7 @@ O cenário Código é o modo terminal: o código virando uma onda, para quem viv
 
 Gerada no Flow na v3: `assets/Cenarios/vivo-codigo.jpg`. É ela que vai em post, story, wallpaper e deskmat; o desenho em código deste componente fica só como guia de construção.
 
-- Atenção: esta geração escreveu códigos de cor legíveis na onda (`#FF7A1A`, `#CFC6EA`). Serve para story e post pequeno; para deskmat e peça grande, gere de novo com o ajuste em Prompts e aplicações.
+- Atenção: esta geração escreveu códigos de cor legíveis na onda (`#FF7A1A`, `#CFC6EA`). Serve para story e post pequeno; para deskmat e peça grande, gere de novo em chat novo do Flow com o prompt sem códigos de cor, em Prompts e aplicações. O ajuste em cima desta imagem não funciona.
 
 ## Construção
 

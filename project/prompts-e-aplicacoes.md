@@ -194,24 +194,26 @@ OUTPUT
 
 Sem referência anexada: as referências de código que vieram tinham marca de terceiros. Este prompt já descreve o estilo.
 
+Atenção: neste cenário as cores vão por nome, nunca em código hexadecimal. Na v3, com os códigos no prompt, o Flow escreveu `#FF7A1A` e `#CFC6EA` dentro da onda. Use em chat novo, não como ajuste em cima da imagem antiga.
+
 ```
 TASK
-Create a dark background where lines of monospaced code flow across the frame like a big ocean wave.
+Create a dark background where streams of tiny abstract glyphs flow across the frame like a big ocean wave curling to the right.
 
 STYLE DNA
-Medium: digital illustration, crisp monospaced characters following curved paths, slight glow on the brightest lines, depth created by opacity (far lines dimmer and smaller).
-Color palette, only these: background near-black purple #1A0838, code lines in light lilac #B8A4FF, orange #FF7A1A and soft lavender #CFC6EA, a few loose square pixels in lilac #8B6CF5, one orange text cursor block.
-Composition: the wave curls from the left edge toward the upper right. Keep the lower third calmer for text.
-Content: the code is unreadable at a glance. No real brand names, no logos, no symbols of any company, no mascots.
+Medium: digital illustration. The wave is made of thin rows of small abstract code-like marks: brackets, dots, dashes, slashes, equal signs and tiny squares. No letters of any alphabet, no numbers, no words. Slight glow on the brightest rows, depth created by opacity (far rows dimmer and smaller).
+Color palette: near-black deep purple background, rows in light lilac, a few rows in bright orange, some rows in soft pale lavender. Loose square pixels in lilac spray off the crest of the wave. One small solid orange block like a text cursor.
+Composition: the wave curls from the left edge toward the upper right. The lower third is calm and almost empty, with only a few faint flowing lines.
+Mood: calm, nerdy, elegant.
 
 OUTPUT
-9:16, high resolution. No readable words, no logos, no characters.
+9:16, high resolution. Absolutely no readable text: no letters, no numbers, no color codes, no words, no logos, no characters.
 ```
 
-Ajuste para o Código (a primeira geração escreveu os códigos de cor como texto). Use no mesmo chat do Flow, com a imagem gerada:
+Se ainda sair alguma letra legível, mande este ajuste no mesmo chat da imagem nova:
 
 ```
-Keep everything identical: the wave shape, colors, glow and composition. Replace every readable string, especially hex color codes like #FF7A1A, #CFC6EA or #B8A4FF and any English words, with meaningless monospaced symbols and short fake code fragments. Nothing in the image should be readable as a word or a color code.
+Keep the wave, colors and composition identical. Replace any letter or number with dots, dashes and brackets. Nothing in the image may be readable.
 ```
 
 Ajustes rápidos:

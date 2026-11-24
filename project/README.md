@@ -166,6 +166,6 @@ Resolvido na v3:
 Continua aberto:
 
 - Prova em silk dos chapados no tecido preto (adiada, junto com a primeira tiragem).
-- Gerar de novo o Código sem os códigos de cor legíveis, antes de usar em deskmat ou peça grande (ajuste em Prompts e aplicações).
+- Gerar de novo o Código, em chat novo do Flow, com o prompt v3 sem códigos de cor (Prompts e aplicações). O ajuste em cima da imagem antiga não funcionou e espalhou símbolos de código nos outros cenários: as versões vivas aprovadas continuam as primeiras.
 - Refinar o traço da capivara em vetor num editor (Illustrator ou Figma) antes de usar grande em impressão.
 - Testar a linha de campanha inspirada no pôster editorial: pessoa sem rosto visível de moletom Craudio Crew, palavra gigante atrás, céu ou chão de cenário.
