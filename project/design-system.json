@@ -228,6 +228,42 @@
           "type": "image/jpeg"
         }
       }
+    },
+    "Posts": {
+      "name": "Posts",
+      "tile": "m",
+      "order": [
+        "post-1-fluido.jpg",
+        "post-2-codigo.jpg",
+        "post-3-nuvens.jpg",
+        "post-4-folhas.jpg"
+      ],
+      "files": {
+        "post-1-fluido.jpg": {
+          "blob": "64bec6845cf06169fe0f433bcd1902be",
+          "name": "post-1-fluido.jpg",
+          "size": 301777,
+          "type": "image/jpeg"
+        },
+        "post-2-codigo.jpg": {
+          "blob": "b50da1d146d7bd214b819ad22b8e3f35",
+          "name": "post-2-codigo.jpg",
+          "size": 319441,
+          "type": "image/jpeg"
+        },
+        "post-3-nuvens.jpg": {
+          "blob": "a13b55ddee7381d5370fb922deca0482",
+          "name": "post-3-nuvens.jpg",
+          "size": 162689,
+          "type": "image/jpeg"
+        },
+        "post-4-folhas.jpg": {
+          "blob": "6b96da0b85419661dcc8d3d637baa8ea",
+          "name": "post-4-folhas.jpg",
+          "size": 267775,
+          "type": "image/jpeg"
+        }
+      }
     }
   },
   "blobs": {},
@@ -240,15 +276,16 @@
   },
   "groups": [
     "Cenarios",
+    "Posts",
     "Personagem",
     "Chapados",
     "Referencias"
   ],
   "lastChange": {
-    "at": "2026-11-24T02:10:00Z",
+    "at": "2026-11-24T02:40:00Z",
     "by": "Gabriel",
     "via": "Claude",
-    "note": "Código vivo refeito com o prompt sem códigos de cor: nada legível na onda."
+    "note": "Quatro posts de feed de estreia (4:5), um por cenário, montados com o PostCenario."
   },
   "layout": "files",
   "libraries": [],

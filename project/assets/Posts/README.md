@@ -1,0 +1,1 @@
+Os quatro posts de feed de estreia, em 4:5 (1080 × 1350), um por cenário, na ordem de publicação sugerida: Fluido, Código, Nuvens, Folhas. Montados com o molde do componente PostCenario sobre as versões vivas do grupo Cenarios e as poses em vetor. Os originais em PNG e a página que gera os posts ficam no repositório, em `posts-feed/`.

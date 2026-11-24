@@ -91,7 +91,7 @@ Regras:
 - Alternância continua: se as palavras gigantes são da família roxa, os conectores são da laranja, e o inverso.
 - Laranja sempre aparece junto de roxo em algum ponto da peça. Nos cenários laranja (Folhas e Nuvens), o roxo entra no texto e no moletom da capivara.
 - Texto sobre os chãos laranja (`laranja`, `laranja-queimado`) é sempre `fundo` ou `roxo-profundo`. `tinta` sobre laranja não passa no contraste.
-- Texto sobre os chãos escuros (`fundo`, `roxo-profundo`) usa `tinta` nos conectores e `roxo-claro` ou `laranja` nas palavras gigantes.
+- Texto sobre os chãos escuros (`fundo`, `roxo-profundo`) usa `tinta` ou `laranja` nos conectores e `roxo-claro` ou `laranja` nas palavras gigantes. Com palavra gigante `roxo-claro`, prefira o conector `laranja` (alternância).
 - `roxo-vibrante` e `pessego` são cores de cenário: nunca para texto pequeno.
 - No tecido: no máximo três tintas por estampa, sem degradê, sem brilho.
 
@@ -163,6 +163,7 @@ Resolvido na v3:
 - Referências do Instagram: fora desta rodada.
 - Versão viva dos quatro cenários e do Fluido Gloss gerada no Flow e aprovada (grupo Cenarios nos assets). As prévias dos componentes de Cenário agora mostram essas imagens.
 - Código vivo refeito sem nada legível (prompt com cores por nome, em chat novo). Regra para todo prompt de cenário: nunca escrever código hexadecimal quando o modelo puder desenhar texto.
+- Quatro posts de feed de estreia, um por cenário, montados com o PostCenario (grupo Posts nos assets).
 
 Continua aberto:
 
