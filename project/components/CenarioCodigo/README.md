@@ -25,4 +25,6 @@ O cenário Código é o modo terminal: o código virando uma onda, para quem viv
 
 ## Versão chapada (silk e bordado)
 
+Arquivo vetorizado na v3: `assets/Chapados/chapado-codigo.svg` (veja CenariosChapados).
+
 Duas tintas: linhas de código em `roxo-claro` e cursor em `laranja`, sobre o preto. Corpo mínimo de 9pt no tecido.

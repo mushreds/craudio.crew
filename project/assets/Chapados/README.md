@@ -1,0 +1,1 @@
+As versões chapadas dos quatro cenários, em SVG, com duas tintas sobre o tecido preto. Cada arquivo é um quadrado de 400 × 400 que se repete como padrão. O fundo `#111111` é só para visualizar e sai na gravação. Veja o componente CenariosChapados.

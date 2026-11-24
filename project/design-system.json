@@ -20,11 +20,46 @@
           "name": "limitinho-folha-v1.jpg",
           "size": 85203,
           "type": "image/jpeg"
+        },
+        "limitinho-v2.svg": {
+          "blob": "215137a67c713d44ba375b8deca1196f",
+          "name": "limitinho-v2.svg",
+          "size": 3113,
+          "type": "image/svg+xml"
+        },
+        "capivara-vetor-calma.svg": {
+          "blob": "ec749d61e09fa12ef3bd4b77113b8fbc",
+          "name": "capivara-vetor-calma.svg",
+          "size": 3536,
+          "type": "image/svg+xml"
+        },
+        "capivara-vetor-dormindo.svg": {
+          "blob": "5e9a55b0e7308424d9bc9d3b800b3a04",
+          "name": "capivara-vetor-dormindo.svg",
+          "size": 3644,
+          "type": "image/svg+xml"
+        },
+        "capivara-vetor-preocupada.svg": {
+          "blob": "ad6938b4d363917f1db9ebbfd43c3542",
+          "name": "capivara-vetor-preocupada.svg",
+          "size": 3869,
+          "type": "image/svg+xml"
+        },
+        "capivara-vetor-satisfeita.svg": {
+          "blob": "9d0780f3fd4f08bd46b291d37efe6fc5",
+          "name": "capivara-vetor-satisfeita.svg",
+          "size": 3541,
+          "type": "image/svg+xml"
         }
       },
       "name": "Personagem",
       "order": [
         "capivara-folha-v2.jpg",
+        "limitinho-v2.svg",
+        "capivara-vetor-calma.svg",
+        "capivara-vetor-dormindo.svg",
+        "capivara-vetor-preocupada.svg",
+        "capivara-vetor-satisfeita.svg",
         "limitinho-folha-v1.jpg",
         "capivara-folha-v1.jpg"
       ],
@@ -72,25 +107,62 @@
         "ref-folhas-b3.jpg"
       ],
       "tile": "m"
+    },
+    "Chapados": {
+      "name": "Chapados",
+      "tile": "m",
+      "order": [
+        "chapado-fluido.svg",
+        "chapado-folhas.svg",
+        "chapado-nuvens.svg",
+        "chapado-codigo.svg"
+      ],
+      "files": {
+        "chapado-fluido.svg": {
+          "blob": "a8d6bffa633eb582c6c0e2f31e28fe6e",
+          "name": "chapado-fluido.svg",
+          "size": 1255,
+          "type": "image/svg+xml"
+        },
+        "chapado-folhas.svg": {
+          "blob": "eb23759324bf3e2019924b44ee70af9a",
+          "name": "chapado-folhas.svg",
+          "size": 2440,
+          "type": "image/svg+xml"
+        },
+        "chapado-nuvens.svg": {
+          "blob": "f6e4aa46773bb457ec3deec4e1e622f8",
+          "name": "chapado-nuvens.svg",
+          "size": 1961,
+          "type": "image/svg+xml"
+        },
+        "chapado-codigo.svg": {
+          "blob": "87d547fb8b7b379bfe078ddc5cbeac33",
+          "name": "chapado-codigo.svg",
+          "size": 5280,
+          "type": "image/svg+xml"
+        }
+      }
     }
   },
   "blobs": {},
   "createdOnFiles": {
-    "v": 1,
-    "at": "2026-11-23T23:59:00Z"
+    "at": "2026-11-23T23:59:00Z",
+    "v": 1
   },
   "docs": {
     "sections": []
   },
   "groups": [
     "Personagem",
+    "Chapados",
     "Referencias"
   ],
   "lastChange": {
-    "at": "2026-11-23T23:59:00Z",
+    "at": "2026-11-24T00:40:00Z",
     "by": "Gabriel",
     "via": "Claude",
-    "note": "v3 copiada da v2: mesmas cores, fontes, personagens e cenários; entra a referência dos tubos brilhantes (variante Gloss do Fluido) e o mapa de referências."
+    "note": "Pendências: Limitinho v2 em vetor (gota em tinta, areia num tom só), capivara em vetor com quatro expressões, cenários chapados vetorizados e briefing do anúncio de 14 s."
   },
   "layout": "files",
   "libraries": [],

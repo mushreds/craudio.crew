@@ -117,7 +117,7 @@ A capivara é o mascote: o usuário, de moletom roxo com capuz, calma absoluta, 
 
 - Contorno `contorno` grosso e uniforme, cor chapada, sombra mínima. Obrigatório sobre os cenários laranja.
 - Pelo em `laranja`, focinho e orelha em `laranja-escuro`, moletom em `roxo`, cordões e objetos em `tinta`.
-- Folhas oficiais em Personagem (assets). Veja os componentes Capivara e Limitinho.
+- Folhas oficiais em Personagem (assets). Veja os componentes Capivara, CapivaraVetor e Limitinho.
 
 ## Estampa
 
@@ -151,10 +151,18 @@ Toda estampa de costas segue o sanduíche: conector, palavra gigante, personagem
 
 ## Pendências para a próxima rodada
 
-- Gerar no Flow a variante Gloss do Fluido (prompt em Prompts e aplicações) e decidir se ela entra só no digital ou também em embalagem.
-- Testar a linha de campanha inspirada no pôster editorial: pessoa sem rosto visível de moletom Craudio Crew, palavra gigante atrás, céu ou chão de cenário.
+Resolvido na v3:
 
-- Gerar no Flow a versão viva de cada cenário (prompts em Prompts e aplicações) e substituir os desenhos de referência deste sistema.
-- Vetorizar a versão chapada de cada cenário e testar em silk no tecido preto.
-- Nova folha do Limitinho resolvendo a gota azul e os dois tons de areia.
+- Nova folha do Limitinho, agora em vetor (`limitinho-v2.svg`): a gota de suor saiu do azul para `tinta` e a areia ficou num tom só (`laranja`, com `laranja-escuro` só como sombra no fundo).
+- Versão chapada dos quatro cenários vetorizada em duas tintas sobre o tecido preto (grupo Chapados nos assets e componente CenariosChapados).
+- Capivara em vetor, de frente e com quatro expressões, para animação e motion (componente CapivaraVetor). A folha v2 continua sendo a referência oficial; o vetor é a base para mexer.
+- Briefing do anúncio de 14 segundos (seção Briefing do anúncio).
+
+Continua aberto:
+
+- Testar os chapados em silk no tecido preto (prova física com a gráfica).
+- Gerar no Flow a versão viva de cada cenário e a variante Gloss (prompts em Prompts e aplicações) e substituir os desenhos de referência deste sistema.
+- Decidir se o Fluido Gloss entra só no digital ou também em embalagem.
+- Refinar o traço da capivara em vetor num editor (Illustrator ou Figma) e desenhar as vistas 3/4, perfil e as poses de ação.
+- Testar a linha de campanha inspirada no pôster editorial: pessoa sem rosto visível de moletom Craudio Crew, palavra gigante atrás, céu ou chão de cenário.
 - Analisar as próximas referências (artes e perfis do Instagram) e ver se algum cenário muda ou entra um quinto.

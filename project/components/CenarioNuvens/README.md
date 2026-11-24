@@ -20,4 +20,6 @@ O cenário Nuvens é a soneca e a espera: o tempo entre o limite acabar e o rese
 
 ## Versão chapada (silk e bordado)
 
+Arquivo vetorizado na v3: `assets/Chapados/chapado-nuvens.svg` (veja CenariosChapados).
+
 Duas tintas: nuvem em `pessego` com contorno do próprio tecido, chuva em `laranja`. Sem desfoque. Combina com manta e moletom de inverno.

@@ -19,6 +19,8 @@ O cenário Fluido é o trabalho e o fluxo com a IA: as ideias escorrendo, o prom
 
 ## Versão chapada (silk e bordado)
 
+Arquivo vetorizado na v3: `assets/Chapados/chapado-fluido.svg` (veja CenariosChapados).
+
 As formas de massinha da `ref-blobs-a2.jpg`: blobs em `roxo` sobre `roxo-vibrante`, ou `laranja` sobre o preto. Sem brilho, sem degradê.
 
 ## Variante Gloss (nova na v3)

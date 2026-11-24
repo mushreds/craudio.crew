@@ -20,4 +20,6 @@ O cenário Folhas é o mundo real: para onde a capivara vai quando o limite acab
 
 ## Versão chapada (silk e bordado)
 
+Arquivo vetorizado na v3: `assets/Chapados/chapado-folhas.svg` (veja CenariosChapados).
+
 Duas tintas: folha em `laranja` e anel em `tinta`, sobre o tecido preto. Sem nervura e sem textura. Boa para manga, barra e forro de capuz.
