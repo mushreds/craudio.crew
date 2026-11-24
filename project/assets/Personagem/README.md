@@ -1,0 +1,1 @@
+Folhas de personagem, trazidas da v1 sem mudança. `capivara-folha-v2.jpg` é a referência oficial da capivara (a v1 fica só como histórico): anexe como Image 1 nos prompts de adesivos, estampas e mockups. `limitinho-folha-v1.jpg` é a referência do Limitinho, com os três estados. São referência de geração: a arte final de impressão é vetorizada.

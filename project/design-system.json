@@ -1,0 +1,100 @@
+{
+  "v": 3,
+  "assetGroups": {
+    "Personagem": {
+      "files": {
+        "capivara-folha-v1.jpg": {
+          "blob": "ab636ed9cfcc5f835624832d69cea32b",
+          "name": "capivara-folha-v1.jpg",
+          "size": 309235,
+          "type": "image/jpeg"
+        },
+        "capivara-folha-v2.jpg": {
+          "blob": "a9bd1564449d24ff61390289494a1b33",
+          "name": "capivara-folha-v2.jpg",
+          "size": 288755,
+          "type": "image/jpeg"
+        },
+        "limitinho-folha-v1.jpg": {
+          "blob": "8f67b12393015ba751d5cd26442f812d",
+          "name": "limitinho-folha-v1.jpg",
+          "size": 85203,
+          "type": "image/jpeg"
+        }
+      },
+      "name": "Personagem",
+      "order": [
+        "capivara-folha-v2.jpg",
+        "limitinho-folha-v1.jpg",
+        "capivara-folha-v1.jpg"
+      ],
+      "tile": "l"
+    },
+    "Referencias": {
+      "files": {
+        "ref-blobs-a2.jpg": {
+          "blob": "676350f7f5944767ae8252a6438218da",
+          "name": "ref-blobs-a2.jpg",
+          "size": 65297,
+          "type": "image/jpeg"
+        },
+        "ref-fluido-a1.jpg": {
+          "blob": "98f19e6f442a2d5db26b9312e77501c9",
+          "name": "ref-fluido-a1.jpg",
+          "size": 120621,
+          "type": "image/jpeg"
+        },
+        "ref-folhas-b3.jpg": {
+          "blob": "ff7a6fa63ee77bbd740162ea1ad36982",
+          "name": "ref-folhas-b3.jpg",
+          "size": 264243,
+          "type": "image/jpeg"
+        },
+        "ref-nuvens-b2.jpg": {
+          "blob": "11f0d4073ed66e04a8f8943233a8a5bd",
+          "name": "ref-nuvens-b2.jpg",
+          "size": 62775,
+          "type": "image/jpeg"
+        },
+        "ref-tubos-a3.jpg": {
+          "blob": "a49bdec55fbb1561134fcad5b1d9d736",
+          "name": "ref-tubos-a3.jpg",
+          "size": 129408,
+          "type": "image/jpeg"
+        }
+      },
+      "name": "Referencias",
+      "order": [
+        "ref-fluido-a1.jpg",
+        "ref-blobs-a2.jpg",
+        "ref-tubos-a3.jpg",
+        "ref-nuvens-b2.jpg",
+        "ref-folhas-b3.jpg"
+      ],
+      "tile": "m"
+    }
+  },
+  "blobs": {},
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-23T23:59:00Z"
+  },
+  "docs": {
+    "sections": []
+  },
+  "groups": [
+    "Personagem",
+    "Referencias"
+  ],
+  "lastChange": {
+    "at": "2026-11-23T23:59:00Z",
+    "by": "Gabriel",
+    "via": "Claude",
+    "note": "v3 copiada da v2: mesmas cores, fontes, personagens e cenários; entra a referência dos tubos brilhantes (variante Gloss do Fluido) e o mapa de referências."
+  },
+  "layout": "files",
+  "libraries": [],
+  "namespace": "CraudioCrewV3",
+  "sections": {},
+  "title": "Craudio Crew v3"
+}

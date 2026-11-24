@@ -1,0 +1,57 @@
+<!-- @dsCard group="Estampas" height=720 subtitle="O sanduíche: texto, personagem, texto" -->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Climate+Crisis:YEAR@1979..2050&family=JetBrains+Mono:wght@500&family=Silkscreen&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; }
+  body { background: var(--fundo, #1a0838); display: flex; justify-content: center; padding: 40px 0; }
+  .arte { width: 440px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .conector { font-family: var(--font-round, "Baloo 2", system-ui, sans-serif); font-weight: 800; font-size: 30px; line-height: 1.1; letter-spacing: .02em; color: var(--laranja, #ff7a1a); display: flex; align-items: center; gap: 16px; margin: 0; }
+  .conector.menor { font-size: 24px; }
+  .traco { width: 28px; height: 6px; border-radius: 999px; background: var(--roxo, #8b6cf5); transform: rotate(-8deg); }
+  .traco.b { background: var(--laranja, #ff7a1a); transform: rotate(8deg); }
+  .gigante { font-family: var(--font-display, "Climate Crisis", "Arial Black", sans-serif); font-variation-settings: "YEAR" 1979; font-size: 74px; line-height: .95; color: var(--roxo-claro, #b8a4ff); margin: 8px 0 0; transform: scaleY(1.2); transform-origin: top center; white-space: nowrap; }
+  .capi { width: 260px; margin: 6px 0 12px; position: relative; z-index: 1; }
+  .linha2 { display: flex; align-items: center; gap: 14px; }
+  .raio { display: flex; flex-direction: column; gap: 8px; }
+  .raio i { display: block; width: 22px; height: 6px; border-radius: 999px; background: var(--laranja, #ff7a1a); }
+  .raio.e i:nth-child(1) { transform: rotate(24deg); } .raio.e i:nth-child(3) { transform: rotate(-24deg); }
+  .raio.d i:nth-child(1) { transform: rotate(-24deg); } .raio.d i:nth-child(3) { transform: rotate(24deg); }
+  .assinatura { font-family: var(--font-mono, "JetBrains Mono", ui-monospace, monospace); font-size: 12px; font-weight: 500; letter-spacing: .08em; color: var(--tinta, #f1ece4); margin-top: 44px; }
+  
+  .cp-pelo{fill:var(--laranja,#ff7a1a)} .cp-sombra{fill:var(--laranja-escuro,#c9560a)}
+  .cp-moletom{fill:var(--roxo,#8b6cf5)} .cp-obj{fill:var(--tinta,#f1ece4)}
+  .cp-c{stroke:var(--contorno,#000);stroke-width:6;stroke-linejoin:round;stroke-linecap:round}
+  .cp-fio{fill:none;stroke:var(--tinta,#f1ece4);stroke-width:5;stroke-linecap:round}
+  .cp-risco{fill:none;stroke:var(--contorno,#000);stroke-width:5;stroke-linecap:round}
+
+</style>
+</head>
+<body>
+<div class="arte">
+  <p class="conector"><span class="traco"></span>EU SÓ ESCREVO<span class="traco b"></span></p>
+  <p class="conector menor">O</p>
+  <div class="gigante">PROMPT</div>
+  <svg class="capi" viewBox="0 0 240 204" role="img" aria-label="Capivara de moletom roxo, olho fechado, segurando uma caneca de café">
+    <ellipse class="cp-sombra cp-c" cx="72" cy="190" rx="20" ry="9" /><ellipse class="cp-sombra cp-c" cx="132" cy="190" rx="20" ry="9" />
+    <ellipse class="cp-moletom cp-c" cx="104" cy="142" rx="78" ry="52" /><ellipse class="cp-moletom cp-c" cx="88" cy="80" rx="44" ry="38" />
+    <ellipse class="cp-sombra cp-c" cx="100" cy="44" rx="12" ry="10" /><rect class="cp-pelo cp-c" x="76" y="42" width="124" height="78" rx="34" />
+    <rect class="cp-sombra cp-c" x="152" y="62" width="50" height="54" rx="22" /><circle cx="188" cy="78" r="3.5" fill="#000" />
+    <path class="cp-risco" d="M116 74 q10 7 20 0" /><path class="cp-risco" d="M162 102 q10 6 20 0" />
+    <path class="cp-fio" d="M108 118 L104 146" /><path class="cp-fio" d="M126 120 L129 148" />
+    <rect class="cp-obj cp-c" x="156" y="132" width="36" height="38" rx="6" /><path class="cp-risco" d="M192 142 q14 8 0 18" />
+    <ellipse class="cp-pelo cp-c" cx="150" cy="154" rx="15" ry="10" />
+  </svg>
+  <p class="conector menor">E ELE FAZ O</p>
+  <div class="linha2">
+    <span class="raio e"><i></i><i></i><i></i></span>
+    <div class="gigante">RESTO</div>
+    <span class="raio d"><i></i><i></i><i></i></span>
+  </div>
+  <div class="assinatura">CRAUDIO CREW · CENÁRIO FLUIDO</div>
+</div>
+</body>
+</html>
