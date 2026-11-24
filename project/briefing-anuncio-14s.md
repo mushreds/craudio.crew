@@ -7,7 +7,7 @@ Faça um anúncio rápido da Craudio Crew, com **14 segundos**, em **9:16 (1080�
 ## 1. Pesquisa
 
 - Leia primeiro o design system v3: `project/README.md` (o brand book, incluindo o Mapa das referências), `project/tokens.json`, `project/prompts-e-aplicacoes.md` e os componentes em `project/components/`.
-- Use só os materiais da marca: a capivara em vetor (`assets/Personagem/capivara-vetor-*.svg`, com a folha `capivara-folha-v2.jpg` de referência), o Limitinho em vetor (`assets/Personagem/limitinho-v2.svg`), os quatro cenários e as referências em `assets/Referencias/`.
+- Use só os materiais da marca: a capivara em vetor (`assets/Personagem/capivara-vetor-*.svg`, `capivara-vista-*.svg` e as poses `capivara-pose-notebook`, `-cafe`, `-travesseiro` e `-grama`, com a folha `capivara-folha-v2.jpg` de referência), o Limitinho em vetor (`assets/Personagem/limitinho-v2.svg`), os quatro cenários e as referências em `assets/Referencias/`.
 - Nada de foto ou imagem tirada da internet. Tudo que faltar é desenhado em vetor, dentro da paleta.
 
 ## 2. Direção
@@ -54,7 +54,3 @@ Faça um anúncio rápido da Craudio Crew, com **14 segundos**, em **9:16 (1080�
 - MP4 em 1080×1920 a 30 fps, com 14 s, terminando na assinatura.
 - Mais 9 quadros-chave em PNG (um por linha da decupagem) para aprovação antes do render final.
 - Sem trilha embutida. Deixe marcados os tempos das batidas para encaixar o áudio depois.
-
-## O que falta antes de rodar
-
-- Poses de ação da capivara em vetor (notebook, travesseiro, deitada na grama): hoje só existe a vista de frente. Ou se desenham antes, ou o anúncio usa a frente com objetos ao lado.

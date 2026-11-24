@@ -135,7 +135,7 @@ Toda estampa de costas segue o sanduíche: conector, palavra gigante, personagem
 | Post de feed e story | Mundo | O cenário da frase (veja PostCenario) |
 | Deskmat e wallpaper | Mundo | Um cenário inteiro, capivara pequena no canto |
 | Caneca (sublimação) | Mundo | Cenário em faixa ao redor, frase de um lado |
-| Caixa e papel de seda | Mundo | Fluido por dentro, caixa preta por fora |
+| Caixa e papel de seda | Mundo | Fluido ou Fluido Gloss por dentro, caixa preta por fora |
 | Etiqueta e tag | Tecido | Selo em `pixel` com o nome do cenário |
 | Site | Mundo | Cada seção num cenário, separadas por `space-5` |
 
@@ -157,12 +157,14 @@ Resolvido na v3:
 - Versão chapada dos quatro cenários vetorizada em duas tintas sobre o tecido preto (grupo Chapados nos assets e componente CenariosChapados).
 - Capivara em vetor, de frente e com quatro expressões, para animação e motion (componente CapivaraVetor). A folha v2 continua sendo a referência oficial; o vetor é a base para mexer.
 - Briefing do anúncio de 14 segundos (seção Briefing do anúncio).
+- Capivara em vetor nas vistas 3/4 e perfil e nas quatro poses de ação: notebook (Fluido e Código), café (Fluido), travesseiro (Nuvens) e deitada na grama (Folhas).
+- Fluido Gloss liberado no digital e na embalagem (caixa por dentro, papel de seda, fita), sempre em impressão digital ou sublimação. No tecido, nunca.
+- Prova em silk dos chapados: adiada, fica para quando a primeira tiragem for para a gráfica.
+- Referências do Instagram: fora desta rodada.
 
 Continua aberto:
 
-- Testar os chapados em silk no tecido preto (prova física com a gráfica).
+- Prova em silk dos chapados no tecido preto (adiada, junto com a primeira tiragem).
 - Gerar no Flow a versão viva de cada cenário e a variante Gloss (prompts em Prompts e aplicações) e substituir os desenhos de referência deste sistema.
-- Decidir se o Fluido Gloss entra só no digital ou também em embalagem.
-- Refinar o traço da capivara em vetor num editor (Illustrator ou Figma) e desenhar as vistas 3/4, perfil e as poses de ação.
+- Refinar o traço da capivara em vetor num editor (Illustrator ou Figma) antes de usar grande em impressão.
 - Testar a linha de campanha inspirada no pôster editorial: pessoa sem rosto visível de moletom Craudio Crew, palavra gigante atrás, céu ou chão de cenário.
-- Analisar as próximas referências (artes e perfis do Instagram) e ver se algum cenário muda ou entra um quinto.

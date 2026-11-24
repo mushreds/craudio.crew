@@ -50,6 +50,42 @@
           "name": "capivara-vetor-satisfeita.svg",
           "size": 3541,
           "type": "image/svg+xml"
+        },
+        "capivara-vista-tres-quartos.svg": {
+          "blob": "2f0327948703cb7f2a3821075c445665",
+          "name": "capivara-vista-tres-quartos.svg",
+          "size": 3431,
+          "type": "image/svg+xml"
+        },
+        "capivara-vista-perfil.svg": {
+          "blob": "509f18bdf94689d074a8a60af7938e6d",
+          "name": "capivara-vista-perfil.svg",
+          "size": 2755,
+          "type": "image/svg+xml"
+        },
+        "capivara-pose-notebook.svg": {
+          "blob": "ad92558936ed12e167df9523ce643634",
+          "name": "capivara-pose-notebook.svg",
+          "size": 3436,
+          "type": "image/svg+xml"
+        },
+        "capivara-pose-cafe.svg": {
+          "blob": "632bc55040e0466de3a3f84cf85cfaec",
+          "name": "capivara-pose-cafe.svg",
+          "size": 3609,
+          "type": "image/svg+xml"
+        },
+        "capivara-pose-travesseiro.svg": {
+          "blob": "dfcb3d4ff77aea2e9fa9c231237a052f",
+          "name": "capivara-pose-travesseiro.svg",
+          "size": 3577,
+          "type": "image/svg+xml"
+        },
+        "capivara-pose-grama.svg": {
+          "blob": "fa3b5badf8d33149936cecd18d62ba59",
+          "name": "capivara-pose-grama.svg",
+          "size": 3411,
+          "type": "image/svg+xml"
         }
       },
       "name": "Personagem",
@@ -60,6 +96,12 @@
         "capivara-vetor-dormindo.svg",
         "capivara-vetor-preocupada.svg",
         "capivara-vetor-satisfeita.svg",
+        "capivara-vista-tres-quartos.svg",
+        "capivara-vista-perfil.svg",
+        "capivara-pose-notebook.svg",
+        "capivara-pose-cafe.svg",
+        "capivara-pose-travesseiro.svg",
+        "capivara-pose-grama.svg",
         "limitinho-folha-v1.jpg",
         "capivara-folha-v1.jpg"
       ],
@@ -159,10 +201,10 @@
     "Referencias"
   ],
   "lastChange": {
-    "at": "2026-11-24T00:40:00Z",
+    "at": "2026-11-24T01:10:00Z",
     "by": "Gabriel",
     "via": "Claude",
-    "note": "Pendências: Limitinho v2 em vetor (gota em tinta, areia num tom só), capivara em vetor com quatro expressões, cenários chapados vetorizados e briefing do anúncio de 14 s."
+    "note": "Capivara em vetor: vistas 3/4 e perfil e poses de ação (notebook, café, travesseiro, grama). Fluido Gloss liberado no digital e na embalagem; prova em silk adiada."
   },
   "layout": "files",
   "libraries": [],

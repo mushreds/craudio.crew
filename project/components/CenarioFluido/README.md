@@ -27,7 +27,7 @@ As formas de massinha da `ref-blobs-a2.jpg`: blobs em `roxo` sobre `roxo-vibrant
 
 Os tubos roxos 3D da `ref-tubos-a3.jpg`: grossos, brilhantes como vidro, enroscados uns nos outros. É o Fluido parado e fofo, em vez de escorrendo.
 
-- Só no Mundo (digital, sublimação, embalagem). Nunca no tecido: tem brilho e degradê.
+- Liberado em ambos: digital (post, story, Reels, wallpaper, site) e embalagem (caixa por dentro, papel de seda, fita), sempre em impressão digital ou sublimação. Nunca no tecido: tem brilho e degradê.
 - Tubos em `roxo-vibrante` e `roxo`, sombra em `roxo-profundo`, reflexo em `roxo-claro` e um fio de `tinta`. Sem o azul dos reflexos da referência.
 - Um tubo pode ser `laranja`, no máximo um por quadro, fazendo o papel da faixa de fogo.
 - Usar em capa de destaque, wallpaper, abertura de Reels e caixa por dentro. Para post de frase, prefira o Fluido em mármore: tem mais área calma para texto.

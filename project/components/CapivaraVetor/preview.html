@@ -1,4 +1,4 @@
-<!-- @dsCard group="Personagem" height=330 width=960 subtitle="Vetor de frente, quatro expressões" -->
+<!-- @dsCard group="Personagem" height=520 width=960 subtitle="Frente, vistas e poses de ação em vetor" -->
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -6,13 +6,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
 <style>
   html, body { margin: 0; }
-  body { background: var(--roxo-profundo, #2a0f5c); display: flex; justify-content: center; gap: 24px; padding: 16px 0; }
+  body { background: var(--roxo-profundo, #2a0f5c); padding: 16px 24px; }
+  .row { display: flex; justify-content: center; align-items: flex-end; gap: 14px; margin-bottom: 18px; }
   figure { margin: 0; text-align: center; }
-  img { display: block; width: 210px; height: auto; }
-  figcaption { font-family: var(--font-pixel, "Silkscreen", monospace); font-size: 14px; letter-spacing: .06em; color: var(--laranja, #ff7a1a); margin-top: 6px; }
+  .row img { display: block; height: 200px; width: auto; }
+  .row.poses img { height: 190px; }
+  figcaption { font-family: var(--font-pixel, "Silkscreen", monospace); font-size: 13px; letter-spacing: .06em; color: var(--laranja, #ff7a1a); margin-top: 6px; }
 </style>
 </head>
 <body>
-<figure><img src="/_blob/ec749d61e09fa12ef3bd4b77113b8fbc" alt="Capivara de moletom roxo, expressão calma"><figcaption>CALMA</figcaption></figure><figure><img src="/_blob/5e9a55b0e7308424d9bc9d3b800b3a04" alt="Capivara de moletom roxo, expressão dormindo"><figcaption>DORMINDO</figcaption></figure><figure><img src="/_blob/ad6938b4d363917f1db9ebbfd43c3542" alt="Capivara de moletom roxo, expressão preocupada"><figcaption>PREOCUPADA</figcaption></figure><figure><img src="/_blob/9d0780f3fd4f08bd46b291d37efe6fc5" alt="Capivara de moletom roxo, expressão satisfeita"><figcaption>SATISFEITA</figcaption></figure>
+<div class="row"><figure><img src="/_blob/ec749d61e09fa12ef3bd4b77113b8fbc" alt="Capivara de frente, calma"><figcaption>CALMA</figcaption></figure><figure><img src="/_blob/5e9a55b0e7308424d9bc9d3b800b3a04" alt="Capivara de frente, dormindo"><figcaption>DORMINDO</figcaption></figure><figure><img src="/_blob/ad6938b4d363917f1db9ebbfd43c3542" alt="Capivara de frente, preocupada"><figcaption>PREOCUPADA</figcaption></figure><figure><img src="/_blob/9d0780f3fd4f08bd46b291d37efe6fc5" alt="Capivara de frente, satisfeita"><figcaption>SATISFEITA</figcaption></figure><figure><img src="/_blob/2f0327948703cb7f2a3821075c445665" alt="Capivara em vista três quartos"><figcaption>3/4</figcaption></figure><figure><img src="/_blob/509f18bdf94689d074a8a60af7938e6d" alt="Capivara de perfil"><figcaption>PERFIL</figcaption></figure></div>
+<div class="row poses"><figure class="p"><img src="/_blob/ad92558936ed12e167df9523ce643634" alt="Capivara sentada digitando no notebook"><figcaption>NOTEBOOK</figcaption></figure><figure class="p"><img src="/_blob/632bc55040e0466de3a3f84cf85cfaec" alt="Capivara sentada com caneca de café"><figcaption>CAFÉ</figcaption></figure><figure class="p"><img src="/_blob/dfcb3d4ff77aea2e9fa9c231237a052f" alt="Capivara dormindo abraçada no travesseiro"><figcaption>TRAVESSEIRO</figcaption></figure><figure class="p w"><img src="/_blob/fa3b5badf8d33149936cecd18d62ba59" alt="Capivara deitada na grama"><figcaption>GRAMA</figcaption></figure></div>
 </body>
 </html>
