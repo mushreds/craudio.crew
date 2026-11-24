@@ -208,6 +208,12 @@ OUTPUT
 9:16, high resolution. No readable words, no logos, no characters.
 ```
 
+Ajuste para o Código (a primeira geração escreveu os códigos de cor como texto). Use no mesmo chat do Flow, com a imagem gerada:
+
+```
+Keep everything identical: the wave shape, colors, glow and composition. Replace every readable string, especially hex color codes like #FF7A1A, #CFC6EA or #B8A4FF and any English words, with meaningless monospaced symbols and short fake code fragments. Nothing in the image should be readable as a word or a color code.
+```
+
 Ajustes rápidos:
 
 ```

@@ -5,6 +5,10 @@ O cenário Fluido é o trabalho e o fluxo com a IA: as ideias escorrendo, o prom
 - Frases de produtividade preguiçosa: "Eu só escrevo o prompt e ele faz o resto", "Só mais um prompt".
 - É o cenário padrão da marca: capa de destaque, deskmat, wallpaper, fundo de site e o forro da caixa.
 
+## Versão viva oficial
+
+Gerada no Flow na v3: `assets/Cenarios/vivo-fluido.jpg` (mármore) e `assets/Cenarios/vivo-fluido-gloss.jpg` (Gloss). É ela que vai em post, story, wallpaper e deskmat; o desenho em código deste componente fica só como guia de construção.
+
 ## Construção
 
 - Chão em `roxo-profundo`. Faixas grossas e curvas em `roxo-vibrante` e `roxo`, com um reflexo fino em `roxo-claro` por cima de cada uma.

@@ -6,6 +6,12 @@ O cenário Código é o modo terminal: o código virando uma onda, para quem viv
 - Linha "modo terminal" da coleção, lançamentos e conteúdo técnico.
 - É o único cenário que usa a fonte `pixel` (Silkscreen), só em etiquetas curtas.
 
+## Versão viva oficial
+
+Gerada no Flow na v3: `assets/Cenarios/vivo-codigo.jpg`. É ela que vai em post, story, wallpaper e deskmat; o desenho em código deste componente fica só como guia de construção.
+
+- Atenção: esta geração escreveu códigos de cor legíveis na onda (`#FF7A1A`, `#CFC6EA`). Serve para story e post pequeno; para deskmat e peça grande, gere de novo com o ajuste em Prompts e aplicações.
+
 ## Construção
 
 - Chão em `fundo`. Linhas de pseudocódigo em `micro` (JetBrains Mono), seguindo ondas que cruzam o quadro.

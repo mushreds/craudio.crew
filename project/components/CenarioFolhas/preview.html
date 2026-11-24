@@ -1,4 +1,4 @@
-<!-- @dsCard group="Cenários" height=540 width=960 subtitle="Mundo real: versão viva, para o digital" -->
+<!-- @dsCard group="Cenários" height=580 width=960 subtitle="Mundo real: versão viva, gerada no Flow" -->
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -7,37 +7,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Climate+Crisis:YEAR@1979..2050&family=JetBrains+Mono:wght@500&family=Silkscreen&display=swap" rel="stylesheet">
 <style>
   html, body { margin: 0; }
-  body { background: var(--laranja-queimado,#e8480c); }
-  .palco { position: relative; width: 960px; height: 540px; overflow: hidden; }
-  .palco > svg { position: absolute; inset: 0; }
-  
-  .g-fundo{fill:var(--fundo,#1a0838)} .g-profundo{fill:var(--roxo-profundo,#2a0f5c)}
-  .f-laranja{fill:var(--laranja,#ff7a1a)} .f-queimado{fill:var(--laranja-queimado,#e8480c)}
-  .f-escuro{fill:var(--laranja-escuro,#c9560a)} .f-pessego{fill:var(--pessego,#ffc79a)}
-  .f-roxo{fill:var(--roxo,#8b6cf5)} .f-vibrante{fill:var(--roxo-vibrante,#6a2fe0)}
-  .f-claro{fill:var(--roxo-claro,#b8a4ff)} .f-tinta{fill:var(--tinta,#f1ece4)}
-  .f-suave{fill:var(--tinta-suave,#cfc6ea)}
-  .s-escuro{stroke:var(--laranja-escuro,#c9560a)} .s-queimado{stroke:var(--laranja-queimado,#e8480c)}
-  .s-tinta{stroke:var(--tinta,#f1ece4)} .s-pessego{stroke:var(--pessego,#ffc79a)}
-  .s-laranja{stroke:var(--laranja,#ff7a1a)} .s-vibrante{stroke:var(--roxo-vibrante,#6a2fe0)}
-  .s-roxo{stroke:var(--roxo,#8b6cf5)} .s-claro{stroke:var(--roxo-claro,#b8a4ff)}
-  .s-profundo{stroke:var(--roxo-profundo,#2a0f5c)}
-  .t-claro{fill:var(--roxo-claro,#b8a4ff)} .t-laranja{fill:var(--laranja,#ff7a1a)} .t-suave{fill:var(--tinta-suave,#cfc6ea)}
-
-  .placa { position: absolute; left: 40px; bottom: 40px; background: var(--laranja-queimado,#e8480c); border-radius: var(--radius-lg, 32px); padding: 24px 28px; max-width: 460px; }
-  .tag { font-family: var(--font-pixel, "Silkscreen", monospace); font-size: 14px; letter-spacing: .06em; color: var(--fundo,#1a0838); margin: 0 0 10px; }
-  .con { font-family: var(--font-round, "Baloo 2", system-ui, sans-serif); font-weight: 800; font-size: 22px; line-height: 1.1; color: var(--fundo,#1a0838); margin: 0; }
-  .gig { font-family: var(--font-display, "Climate Crisis", "Arial Black", sans-serif); font-variation-settings: "YEAR" 1979; font-size: 44px; line-height: 1; color: var(--roxo-profundo,#2a0f5c); margin: 4px 0 10px; white-space: nowrap; }
+  body { background: var(--laranja-queimado,#e8480c); display: flex; justify-content: center; align-items: center; gap: 40px; height: 580px; }
+  .story { position: relative; width: 300px; height: 538px; margin: 0; border-radius: var(--radius-md, 16px); overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,.25); }
+  .story img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .placa { position: absolute; left: 16px; right: 16px; bottom: 24px; border-radius: var(--radius-lg, 32px); padding: 16px 18px; }
+  .tag { font-family: var(--font-pixel, "Silkscreen", monospace); font-size: 11px; letter-spacing: .06em; margin: 0 0 8px; }
+  .con { font-family: var(--font-round, "Baloo 2", system-ui, sans-serif); font-weight: 800; font-size: 15px; line-height: 1.1; margin: 0; }
+  .gig { font-family: var(--font-display, "Climate Crisis", "Arial Black", sans-serif); font-variation-settings: "YEAR" 1979; font-size: 27px; line-height: 1; margin: 3px 0 8px; white-space: nowrap; }
+  .nota { width: 260px; font-family: var(--font-round, "Baloo 2", system-ui, sans-serif); font-size: 15px; line-height: 1.45; font-weight: 500; color: var(--fundo,#1a0838); }
+  .nota b { font-family: var(--font-pixel, "Silkscreen", monospace); font-weight: 400; font-size: 13px; letter-spacing: .06em; display: block; margin-bottom: 8px; }
 </style>
 </head>
 <body>
-<div class="palco">
-  <svg width="960" height="540" viewBox="0 0 960 540" aria-hidden="true"><rect width="960" height="540" class="f-queimado"/><circle cx="560" cy="90" r="22" fill="none" class="s-tinta" stroke-width="12"/><circle cx="610" cy="150" r="14" fill="none" class="s-tinta" stroke-width="8"/><circle cx="90" cy="300" r="18" fill="none" class="s-tinta" stroke-width="10"/><circle cx="140" cy="360" r="11" fill="none" class="s-tinta" stroke-width="6"/><circle cx="900" cy="300" r="20" fill="none" class="s-tinta" stroke-width="11"/><circle cx="850" cy="470" r="13" fill="none" class="s-tinta" stroke-width="7"/><circle cx="330" cy="500" r="16" fill="none" class="s-tinta" stroke-width="9"/><circle cx="470" cy="250" r="12" fill="none" class="s-tinta" stroke-width="7"/><circle cx="700" cy="520" r="17" fill="none" class="s-tinta" stroke-width="9"/><circle cx="40" cy="80" r="14" fill="none" class="s-tinta" stroke-width="8"/><g transform="translate(-40 120) rotate(-20) scale(1.0)"><path d="M0 0 C70 -70 230 -70 320 0 C230 70 70 70 0 0 Z" class="f-laranja"/><path d="M-10 0 L300 0" class="s-escuro" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M70 -3 L104 -46 M70 3 L104 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M120 -3 L154 -46 M120 3 L154 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M170 -3 L204 -46 M170 3 L204 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M220 -3 L254 -46 M220 3 L254 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(380 40) rotate(25) scale(0.9)"><path d="M0 0 C70 -70 230 -70 320 0 C230 70 70 70 0 0 Z" class="f-laranja"/><path d="M-10 0 L300 0" class="s-escuro" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M70 -3 L104 -46 M70 3 L104 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M120 -3 L154 -46 M120 3 L154 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M170 -3 L204 -46 M170 3 L204 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M220 -3 L254 -46 M220 3 L254 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(620 240) rotate(-35) scale(1.1)"><path d="M0 0 C70 -70 230 -70 320 0 C230 70 70 70 0 0 Z" class="f-laranja"/><path d="M-10 0 L300 0" class="s-escuro" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M70 -3 L104 -46 M70 3 L104 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M120 -3 L154 -46 M120 3 L154 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M170 -3 L204 -46 M170 3 L204 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M220 -3 L254 -46 M220 3 L254 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(120 470) rotate(-15) scale(1.0)"><path d="M0 0 C70 -70 230 -70 320 0 C230 70 70 70 0 0 Z" class="f-laranja"/><path d="M-10 0 L300 0" class="s-escuro" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M70 -3 L104 -46 M70 3 L104 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M120 -3 L154 -46 M120 3 L154 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M170 -3 L204 -46 M170 3 L204 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M220 -3 L254 -46 M220 3 L254 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(560 560) rotate(-60) scale(0.8)"><path d="M0 0 C70 -70 230 -70 320 0 C230 70 70 70 0 0 Z" class="f-laranja"/><path d="M-10 0 L300 0" class="s-escuro" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M70 -3 L104 -46 M70 3 L104 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M120 -3 L154 -46 M120 3 L154 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M170 -3 L204 -46 M170 3 L204 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M220 -3 L254 -46 M220 3 L254 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(820 90) rotate(60) scale(0.7)"><path d="M0 0 C70 -70 230 -70 320 0 C230 70 70 70 0 0 Z" class="f-laranja"/><path d="M-10 0 L300 0" class="s-escuro" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M70 -3 L104 -46 M70 3 L104 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M120 -3 L154 -46 M120 3 L154 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M170 -3 L204 -46 M170 3 L204 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M220 -3 L254 -46 M220 3 L254 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(260 280) rotate(40) scale(0.6)"><path d="M0 0 C70 -70 230 -70 320 0 C230 70 70 70 0 0 Z" class="f-laranja"/><path d="M-10 0 L300 0" class="s-escuro" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M70 -3 L104 -46 M70 3 L104 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M120 -3 L154 -46 M120 3 L154 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M170 -3 L204 -46 M170 3 L204 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/><path d="M220 -3 L254 -46 M220 3 L254 46" class="s-queimado" stroke-width="7" stroke-linecap="round"/></g></svg>
-  <div class="placa">
-    <p class="tag">CENÁRIO · FOLHAS</p>
-    <p class="con">ESTOUREI O</p><p class="gig">LIMITE</p>
-    <p class="con">FUI TOCAR NA</p><p class="gig" style="margin-bottom:0">GRAMA</p>
-  </div>
-</div>
+<figure class="story"><img src="/_blob/cfb65a926669b96661d10127ea65dc0d" alt="Folhas vivas: folhas de bananeira e costela-de-adão em papel recortado sobre laranja queimado, com anéis claros"><div class="placa" style="background:var(--laranja-queimado,#e8480c)">
+      <p class="tag" style="color:var(--fundo,#1a0838)">CENÁRIO · FOLHAS</p>
+      <p class="con" style="color:var(--fundo,#1a0838)">ESTOUREI O</p><p class="gig" style="color:var(--roxo-profundo,#2a0f5c)">LIMITE</p>
+      <p class="con" style="color:var(--fundo,#1a0838)">FUI TOCAR NA</p><p class="gig" style="color:var(--roxo-profundo,#2a0f5c);margin-bottom:0">GRAMA</p>
+    </div></figure>
+<p class="nota"><b>FOLHAS</b>A frase vai numa placa da cor do chão, no vão entre as folhas. Texto sempre em fundo ou roxo-profundo.</p>
 </body>
 </html>

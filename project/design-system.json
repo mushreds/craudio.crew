@@ -185,6 +185,49 @@
           "type": "image/svg+xml"
         }
       }
+    },
+    "Cenarios": {
+      "name": "Cenarios",
+      "tile": "m",
+      "order": [
+        "vivo-fluido.jpg",
+        "vivo-fluido-gloss.jpg",
+        "vivo-folhas.jpg",
+        "vivo-nuvens.jpg",
+        "vivo-codigo.jpg"
+      ],
+      "files": {
+        "vivo-fluido.jpg": {
+          "blob": "b77974d62575dcdcf3f78ef651c40829",
+          "name": "vivo-fluido.jpg",
+          "size": 488605,
+          "type": "image/jpeg"
+        },
+        "vivo-fluido-gloss.jpg": {
+          "blob": "1ddb2e694d540ea6ddfca49464b22eeb",
+          "name": "vivo-fluido-gloss.jpg",
+          "size": 305756,
+          "type": "image/jpeg"
+        },
+        "vivo-folhas.jpg": {
+          "blob": "cfb65a926669b96661d10127ea65dc0d",
+          "name": "vivo-folhas.jpg",
+          "size": 360645,
+          "type": "image/jpeg"
+        },
+        "vivo-nuvens.jpg": {
+          "blob": "c6855c71468ba982352616369d3b1898",
+          "name": "vivo-nuvens.jpg",
+          "size": 165580,
+          "type": "image/jpeg"
+        },
+        "vivo-codigo.jpg": {
+          "blob": "c55adf6ebe6f08a91e543265ebc3e03a",
+          "name": "vivo-codigo.jpg",
+          "size": 421180,
+          "type": "image/jpeg"
+        }
+      }
     }
   },
   "blobs": {},
@@ -196,15 +239,16 @@
     "sections": []
   },
   "groups": [
+    "Cenarios",
     "Personagem",
     "Chapados",
     "Referencias"
   ],
   "lastChange": {
-    "at": "2026-11-24T01:10:00Z",
+    "at": "2026-11-24T01:40:00Z",
     "by": "Gabriel",
     "via": "Claude",
-    "note": "Capivara em vetor: vistas 3/4 e perfil e poses de ação (notebook, café, travesseiro, grama). Fluido Gloss liberado no digital e na embalagem; prova em silk adiada."
+    "note": "Versão viva dos quatro cenários e do Fluido Gloss, gerada no Flow, entra no grupo Cenarios e nas prévias dos componentes."
   },
   "layout": "files",
   "libraries": [],

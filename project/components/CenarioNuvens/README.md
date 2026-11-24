@@ -6,6 +6,10 @@ O cenário Nuvens é a soneca e a espera: o tempo entre o limite acabar e o rese
 - É a casa do Limitinho no estado Acabou: ele aparece encostado numa nuvem.
 - Conteúdo de noite, segunda-feira, "modo econômico".
 
+## Versão viva oficial
+
+Gerada no Flow na v3: `assets/Cenarios/vivo-nuvens.jpg`. É ela que vai em post, story, wallpaper e deskmat; o desenho em código deste componente fica só como guia de construção.
+
 ## Construção
 
 - Chão em `laranja`. Nuvens fofas em `pessego`, com uma sombra interna em `laranja` e um brilho fino em `tinta`.

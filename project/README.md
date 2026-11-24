@@ -132,7 +132,7 @@ Toda estampa de costas segue o sanduíche: conector, palavra gigante, personagem
 | --- | --- | --- |
 | Moletom, costas | Tecido | Estampa sanduíche, sem cenário |
 | Moletom, manga ou forro do capuz | Tecido | Versão chapada do cenário da frase |
-| Post de feed e story | Mundo | O cenário da frase (veja PostCenario) |
+| Post de feed e story | Mundo | O cenário da frase, na versão viva do grupo Cenarios (veja PostCenario) |
 | Deskmat e wallpaper | Mundo | Um cenário inteiro, capivara pequena no canto |
 | Caneca (sublimação) | Mundo | Cenário em faixa ao redor, frase de um lado |
 | Caixa e papel de seda | Mundo | Fluido ou Fluido Gloss por dentro, caixa preta por fora |
@@ -161,10 +161,11 @@ Resolvido na v3:
 - Fluido Gloss liberado no digital e na embalagem (caixa por dentro, papel de seda, fita), sempre em impressão digital ou sublimação. No tecido, nunca.
 - Prova em silk dos chapados: adiada, fica para quando a primeira tiragem for para a gráfica.
 - Referências do Instagram: fora desta rodada.
+- Versão viva dos quatro cenários e do Fluido Gloss gerada no Flow e aprovada (grupo Cenarios nos assets). As prévias dos componentes de Cenário agora mostram essas imagens.
 
 Continua aberto:
 
 - Prova em silk dos chapados no tecido preto (adiada, junto com a primeira tiragem).
-- Gerar no Flow a versão viva de cada cenário e a variante Gloss (prompts em Prompts e aplicações) e substituir os desenhos de referência deste sistema.
+- Gerar de novo o Código sem os códigos de cor legíveis, antes de usar em deskmat ou peça grande (ajuste em Prompts e aplicações).
 - Refinar o traço da capivara em vetor num editor (Illustrator ou Figma) antes de usar grande em impressão.
 - Testar a linha de campanha inspirada no pôster editorial: pessoa sem rosto visível de moletom Craudio Crew, palavra gigante atrás, céu ou chão de cenário.

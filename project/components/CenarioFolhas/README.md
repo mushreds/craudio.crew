@@ -6,6 +6,10 @@ O cenário Folhas é o mundo real: para onde a capivara vai quando o limite acab
 - Posts de fim de semana, férias, pausa, "vai tomar um sol".
 - Linha de verão e peças claras da coleção.
 
+## Versão viva oficial
+
+Gerada no Flow na v3: `assets/Cenarios/vivo-folhas.jpg`. É ela que vai em post, story, wallpaper e deskmat; o desenho em código deste componente fica só como guia de construção.
+
 ## Construção
 
 - Chão em `laranja-queimado`. Folhas de bananeira em `laranja`, nervura central e cortes em `laranja-escuro` e no próprio chão.
