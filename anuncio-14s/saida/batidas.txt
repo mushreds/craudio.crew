@@ -1,0 +1,21 @@
+Batidas do anúncio Craudio Crew 14 s (para encaixar a trilha, cerca de 120 BPM)
+Cada linha é um corte ou impacto, em segundos.
+
+0.00  abertura: Fluido, PROMPT bate em 0.22
+1.20  entra "E ELE FAZ O"; RESTO vira em 1.45
+2.80  faixas: Fluido vira Código
+2.95  PROMPT vira PRIMEIRA
+3.60  RESTO vira MEXE
+4.60  corte 1: uma capivara grande
+4.87  corte 2: duas capivaras
+5.13  corte 3: três capivaras
+5.40  íris: Nuvens, entra o Limitinho
+5.90  começa o derretimento do LIMITE (até 7.30)
+7.60  LIMITE vira RESET; capivara no travesseiro
+8.45  CALMA entra
+9.20  virada 3D: Nuvens vira Folhas
+9.45  RESET vira GRAMA
+11.40 cartão Gloss cresce e fecha a tela
+12.40 Gloss sobe; assinatura CRAUDIO CREW
+13.00 assinatura em micro digitando
+14.00 fim (parada de 1 s desde 13.0)

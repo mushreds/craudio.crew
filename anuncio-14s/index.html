@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Craudio Crew · anúncio 14 s</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Climate+Crisis:YEAR@1979..2050&family=JetBrains+Mono:wght@500&family=Silkscreen&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fundo:#1a0838; --roxo-profundo:#2a0f5c; --roxo-vibrante:#6a2fe0; --roxo:#8b6cf5; --roxo-claro:#b8a4ff;
+    --laranja:#ff7a1a; --laranja-queimado:#e8480c; --laranja-escuro:#c9560a; --pessego:#ffc79a;
+    --tinta:#f1ece4; --tinta-suave:#cfc6ea; --contorno:#000;
+  }
+  html, body { margin: 0; background: #000; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--roxo-profundo); transform-origin: 50% 50%; }
+  .layer { position: absolute; inset: 0; }
+  .bg { position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden; }
+  .bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  #flip { perspective: 2600px; }
+  #strips div { position: absolute; left: 0; width: 1080px; background-size: 1080px 1920px; background-repeat: no-repeat; }
+  #gloss { border-radius: 0; overflow: hidden; }
+  #dim { background: var(--roxo-profundo); }
+  .cap { position: absolute; display: block; transform-origin: 50% 100%; }
+  .fog { position: absolute; border-radius: 50%; background: var(--pessego); filter: blur(46px); }
+
+  /* plate */
+  #plate { position: absolute; left: 64px; right: 64px; bottom: 150px; border-radius: 48px; padding: 40px 52px 44px; transform-origin: 50% 100%; }
+  .line { overflow: hidden; }
+  .line > .inner { transform-origin: 0 100%; }
+  .tag { font-family: "Silkscreen", monospace; font-size: 30px; letter-spacing: .06em; line-height: 1.2; padding-bottom: 14px; }
+  .con { font-family: "Baloo 2", system-ui, sans-serif; font-weight: 800; font-size: 50px; line-height: 1.1; letter-spacing: .02em; padding-top: 4px; }
+  .gig { font-family: "Climate Crisis", "Arial Black", sans-serif; font-size: 112px; line-height: 1; padding: 34px 0 14px; }
+  .gig .w { display: inline-flex; transform: scaleY(1.22); transform-origin: 0 100%; }
+  .w { display: inline-flex; white-space: pre; }
+  .slot { position: relative; display: inline-block; overflow: hidden; height: 1.1em; vertical-align: bottom; }
+  .slot > span { position: absolute; left: 50%; top: 0; transform: translateX(-50%); white-space: pre; }
+  #cursor { display: inline-block; width: 40px; height: 92px; background: var(--laranja); margin-left: 18px; vertical-align: bottom; }
+
+  /* signature */
+  #sig { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  #sig .big { font-family: "Climate Crisis", "Arial Black", sans-serif; font-size: 146px; line-height: .95; color: var(--roxo-claro); }
+  #sig .big .w { transform: scaleY(1.22); transform-origin: 50% 100%; }
+  #sig .micro { font-family: "JetBrains Mono", monospace; font-size: 32px; letter-spacing: .08em; color: var(--tinta); margin-top: 64px; white-space: pre; }
+  #measure { position: absolute; left: -9999px; top: 0; visibility: hidden; white-space: pre; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- cenários -->
+  <div class="bg" id="bgFluido"><img src="../project/assets/Cenarios/vivo-fluido.jpg" alt=""></div>
+  <div class="layer" id="strips"></div>
+  <div class="bg" id="bgCodigo"><img src="../project/assets/Cenarios/vivo-codigo.jpg" alt=""></div>
+  <div class="layer" id="flip">
+    <div class="bg" id="bgNuvens"><img src="../project/assets/Cenarios/vivo-nuvens.jpg" alt=""></div>
+    <div class="bg" id="bgFolhas"><img src="../project/assets/Cenarios/vivo-folhas.jpg" alt=""></div>
+  </div>
+  <div class="bg" id="bgFinal"><img src="../project/assets/Cenarios/vivo-fluido.jpg" alt=""></div>
+  <div class="layer" id="dim"></div>
+  <div class="bg" id="gloss"><img src="../project/assets/Cenarios/vivo-fluido-gloss.jpg" alt=""></div>
+
+  <!-- personagens -->
+  <img class="cap" id="capNote" src="../project/assets/Personagem/capivara-pose-notebook.svg" alt="">
+  <img class="cap" id="capA" src="../project/assets/Personagem/capivara-pose-notebook.svg" alt="">
+  <img class="cap" id="capB" src="../project/assets/Personagem/capivara-pose-notebook.svg" alt="">
+  <img class="cap" id="capC" src="../project/assets/Personagem/capivara-pose-notebook.svg" alt="">
+  <img class="cap" id="capTrav" src="../project/assets/Personagem/capivara-pose-travesseiro.svg" alt="">
+  <img class="cap" id="capGrama" src="../project/assets/Personagem/capivara-pose-grama.svg" alt="">
+  <img class="cap" id="capCalma" src="../project/assets/Personagem/capivara-vetor-calma.svg" alt="">
+
+  <svg id="lim" class="cap" viewBox="0 0 200 220" width="300" height="330" aria-hidden="true">
+    <defs><clipPath id="hg"><path id="hgPath" d="M50 24 H150 Q166 24 157 38 L107 106 Q103 110 107 114 L157 182 Q166 196 150 196 H50 Q34 196 43 182 L93 114 Q97 110 93 106 L43 38 Q34 24 50 24 Z"/></clipPath></defs>
+    <g clip-path="url(#hg)">
+      <rect id="limTop" x="0" y="0" width="200" height="110" fill="#8b6cf5"/>
+      <rect id="limSandTop" x="0" y="64" width="200" height="46" fill="#ff7a1a"/>
+      <rect id="limStream" x="96" y="104" width="8" height="46" fill="#ff7a1a"/>
+      <rect id="limSandBot" x="0" y="150" width="200" height="50" fill="#ff7a1a"/>
+      <path d="M30 188 H170" stroke="#c9560a" stroke-width="14"/>
+    </g>
+    <path d="M50 24 H150 Q166 24 157 38 L107 106 Q103 110 107 114 L157 182 Q166 196 150 196 H50 Q34 196 43 182 L93 114 Q97 110 93 106 L43 38 Q34 24 50 24 Z" fill="none" stroke="#000" stroke-width="7" stroke-linejoin="round"/>
+    <g id="faceA" stroke="#000" stroke-width="5" stroke-linecap="round" fill="none"><circle cx="82" cy="52" r="5.5" fill="#000" stroke="none"/><circle cx="118" cy="52" r="5.5" fill="#000" stroke="none"/><path d="M92 60 Q100 68 108 60"/></g>
+    <g id="faceB" stroke="#000" stroke-width="5" stroke-linecap="round" fill="none"><path d="M74 48 L88 42 M126 48 L112 42"/><circle cx="82" cy="54" r="5.5" fill="#000" stroke="none"/><circle cx="118" cy="54" r="5.5" fill="#000" stroke="none"/><path d="M93 70 Q100 63 107 70"/><path d="M140 30 Q132 44 136 50 Q140 55 144 50 Q148 44 140 30 Z" fill="#f1ece4" stroke-width="4"/></g>
+    <g id="faceC" stroke="#000" stroke-width="5" stroke-linecap="round" fill="none"><path d="M74 52 H90 M110 52 H126 M94 64 H106"/></g>
+  </svg>
+
+  <div class="fog" id="fog1" style="width:520px;height:300px"></div>
+  <div class="fog" id="fog2" style="width:380px;height:240px"></div>
+
+  <!-- placa -->
+  <div id="plate">
+    <div class="line" id="Ltag"><div class="inner tag"><span class="w" id="tag"></span></div></div>
+    <div class="line" id="Lc1"><div class="inner con"><span class="w" id="c1"></span></div></div>
+    <div class="line" id="Lg1"><div class="inner gig"><span class="w" id="g1"></span><span id="cursor"></span></div></div>
+    <div class="line" id="Lc2"><div class="inner con"><span class="w" id="c2"></span></div></div>
+    <div class="line" id="Lg2"><div class="inner gig"><span class="w" id="g2"></span></div></div>
+  </div>
+
+  <!-- assinatura -->
+  <div class="layer" id="sig">
+    <img class="cap" id="capSig" src="../project/assets/Personagem/capivara-vetor-calma.svg" alt="" style="position:relative;width:330px;margin-bottom:56px">
+    <div class="big"><span class="w" id="s1"></span></div>
+    <div class="big"><span class="w" id="s2"></span></div>
+    <div class="micro" id="micro"></div>
+  </div>
+</div>
+<div id="measure"></div>
+
+<script>
+// ---------- utilidades ----------
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, p) => a + (b - a) * p;
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const eOut = p => 1 - Math.pow(1 - p, 3);
+const eIn = p => p * p * p;
+const eIO = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const eBack = p => { const c = 1.9, c3 = c + 1; return 1 + c3 * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+const mix = (a, b, p) => { const A = hex(a), B = hex(b); return `rgb(${A.map((v, i) => Math.round(lerp(v, B[i], p))).join(',')})`; };
+const C = { fundo:'#1a0838', profundo:'#2a0f5c', claro:'#b8a4ff', laranja:'#ff7a1a', queimado:'#e8480c', tinta:'#f1ece4' };
+
+// ---------- medida de letras (para a troca de palavra) ----------
+const widthCache = {};
+function charW(cls, ch) {
+  const k = cls + '|' + ch; if (k in widthCache) return widthCache[k];
+  const m = $('measure'); m.className = cls; m.textContent = ch === ' ' ? ' ' : ch;
+  return widthCache[k] = m.getBoundingClientRect().width;
+}
+// troca letra a letra: a letra velha sai para cima, a nova entra por baixo, com escada
+function morph(el, cls, from, to, p, opt = {}) {
+  const n = Math.max(from.length, to.length), st = Math.min(opt.stagger ?? .07, n > 1 ? .6 / (n - 1) : 1);
+  const span = 1 - st * Math.max(0, n - 1);
+  let html = '';
+  for (let i = 0; i < n; i++) {
+    const a = from[i] || '', b = to[i] || '';
+    const li = a === b ? 1 : eIO(clamp((p - i * st) / Math.max(span, .001)));
+    const w = lerp(a ? charW(cls, a) : 0, b ? charW(cls, b) : 0, li);
+    const ya = -115 * li, yb = 115 * (1 - li);
+    const va = opt.yearA ? `font-variation-settings:'YEAR' ${opt.yearA};` : '';
+    const vb = opt.yearB ? `font-variation-settings:'YEAR' ${opt.yearB};` : '';
+    html += `<span class="slot" style="width:${w.toFixed(2)}px">`
+      + (a && li < 1 ? `<span style="transform:translate(-50%,${ya}%);${va}">${a}</span>` : '')
+      + (b ? `<span style="transform:translate(-50%,${yb}%);${vb}">${b}</span>` : '')
+      + `</span>`;
+  }
+  el.innerHTML = html;
+}
+// linha da placa: altura e opacidade por visibilidade v (0..1)
+const natural = {};
+function line(id, v) {
+  const L = $(id), inner = L.firstElementChild;
+  if (!(id in natural)) natural[id] = inner.getBoundingClientRect().height;
+  const e = eOut(clamp(v));
+  L.style.height = (natural[id] * e).toFixed(2) + 'px';
+  inner.style.opacity = e;
+  inner.style.transform = `translateY(${((1 - e) * 40).toFixed(1)}px)`;
+}
+function place(el, x, y, w, extra = '') { // x,y = centro da base
+  el.style.width = w + 'px'; el.style.left = (x - w / 2) + 'px';
+  el.style.top = (y - el.naturalHeight / el.naturalWidth * w || 0) + 'px';
+  el.style.transform = extra; el.style.opacity = 1;
+}
+function hide(...els) { els.forEach(e => e.style.opacity = 0); }
+
+// ---------- faixas (Fluido vira Código) ----------
+const NSTRIP = 16;
+(function () {
+  let h = '';
+  for (let i = 0; i < NSTRIP; i++) h += `<div style="top:${i * 120}px;height:121px;background-image:url(../project/assets/Cenarios/vivo-codigo.jpg);background-position:0 -${i * 120}px"></div>`;
+  $('strips').innerHTML = h;
+})();
+
+// ---------- render(t) ----------
+const TAG = 'tag', CON = 'con', GIG = 'gig';
+function render(t) {
+  const stage = $('stage');
+  // batida: leve zoom de impacto em cada corte
+  const cuts = [0, 1.2, 2.8, 4.6, 4.87, 5.13, 5.4, 7.6, 9.2, 11.4, 12.4];
+  let punch = 0; for (const c of cuts) { const d = t - c; if (d >= 0 && d < .35) punch = Math.max(punch, 1 - eOut(d / .35)); }
+  stage.style.transform = `scale(${1 + .035 * punch})`;
+
+  // ----- fundos -----
+  const bgF = $('bgFluido'), bgC = $('bgCodigo'), bgN = $('bgNuvens'), bgL = $('bgFolhas'), bgX = $('bgFinal'), dim = $('dim'), gl = $('gloss');
+  [bgF, bgC, bgN, bgL, bgX, gl, dim].forEach(e => { e.style.opacity = 0; e.style.transform = ''; e.style.clipPath = ''; });
+  // Fluido 0–2.8 com zoom lento
+  if (t < 3.3) { bgF.style.opacity = 1; bgF.firstElementChild.style.transform = `scale(${lerp(1.18, 1.04, eOut(seg(t, 0, 2.8)))})`; }
+  // faixas 2.8–3.25
+  const sp = seg(t, 2.8, 3.25);
+  [...$('strips').children].forEach((d, i) => {
+    const li = eOut(clamp((sp - i * .03) / .55));
+    d.style.transform = `scaleX(${li})`; d.style.transformOrigin = i % 2 ? '100% 50%' : '0 50%';
+    d.style.opacity = t >= 2.8 && t < 3.3 ? 1 : 0;
+  });
+  if (t >= 3.25 && t < 6.2) { bgC.style.opacity = 1; bgC.firstElementChild.style.transform = `scale(${lerp(1.02, 1.12, seg(t, 3.25, 5.4))})`; }
+  // íris para Nuvens 5.4–5.85
+  if (t >= 5.4 && t < 9.75) {
+    bgN.style.opacity = 1;
+    const r = lerp(0, 125, eIO(seg(t, 5.4, 5.85)));
+    bgN.style.clipPath = t < 5.85 ? `circle(${r}% at 50% 44%)` : '';
+    bgN.firstElementChild.style.transform = `scale(${lerp(1.12, 1.0, eOut(seg(t, 5.4, 9.2)))})`;
+  }
+  // virada 3D Nuvens → Folhas 9.2–9.7
+  if (t >= 9.2 && t < 9.45) bgN.style.transform = `rotateY(${-90 * eIn(seg(t, 9.2, 9.45))}deg)`;
+  if (t >= 9.45 && t < 9.75) bgN.style.opacity = 0;
+  if (t >= 9.45 && t < 12.0) {
+    bgL.style.opacity = 1;
+    bgL.style.transform = t < 9.7 ? `rotateY(${90 * (1 - eOut(seg(t, 9.45, 9.7)))}deg)` : '';
+    bgL.firstElementChild.style.transform = `scale(${lerp(1.0, 1.1, seg(t, 9.45, 11.4))}) rotate(${lerp(0, 2.5, seg(t, 9.45, 11.4))}deg)`;
+  }
+  // Gloss: cartão pequeno que cresce e fecha a tela 11.4–12.0, sai para cima 12.4–12.75
+  if (t >= 11.4 && t < 12.8) {
+    gl.style.opacity = 1;
+    const g = eIO(seg(t, 11.4, 11.95));
+    const s = lerp(.22, 1, g), rad = lerp(120, 0, g), rot = lerp(-10, 0, g);
+    const up = eIn(seg(t, 12.4, 12.75)) * -105;
+    gl.style.transform = `translateY(${up}%) scale(${s}) rotate(${rot}deg)`;
+    gl.style.borderRadius = rad / s + 'px';
+    gl.firstElementChild.style.transform = `scale(${lerp(1.25, 1.05, seg(t, 11.4, 12.4))})`;
+  }
+  // final: Fluido escurecido
+  if (t >= 12.0) {
+    bgX.style.opacity = 1; bgX.firstElementChild.style.transform = `scale(${lerp(1.1, 1.0, eOut(seg(t, 12.4, 14)))}) rotate(180deg)`;
+    dim.style.opacity = .62;
+  }
+
+  // ----- personagens -----
+  const cN = $('capNote'), cA = $('capA'), cB = $('capB'), cC = $('capC'), cT = $('capTrav'), cG = $('capGrama'), lim = $('lim');
+  hide(cN, cA, cB, cC, cT, cG, lim, $('capCalma'));
+  const bob = Math.sin(t * 7) * 6;
+  // notebook: entra pequena em 1.3 e cresce até 2.8; continua no Código até 4.6
+  if (t >= 1.3 && t < 4.6) {
+    const g = eBack(seg(t, 1.3, 1.65)) * lerp(.55, 1, eOut(seg(t, 1.3, 2.8)));
+    place(cN, 540, 1150 + (t > 2.8 ? bob * .5 : 0), 620, `scale(${g})`);
+  }
+  // três cortes rápidos 4.6–5.4: uma grande, duas médias, três pequenas
+  if (t >= 4.6 && t < 5.4) {
+    const k = t < 4.87 ? 0 : t < 5.13 ? 1 : 2;
+    const pop = eBack(seg(t, [4.6, 4.87, 5.13][k], [4.6, 4.87, 5.13][k] + .14));
+    if (k === 0) place(cA, 540, 1540, 980, `scale(${pop})`);
+    if (k === 1) { place(cA, 300, 1200, 520, `scale(${pop}) rotate(-4deg)`); place(cB, 780, 1560, 520, `scale(${pop}) rotate(4deg)`); }
+    if (k === 2) { place(cA, 260, 820, 420, `scale(${pop})`); place(cB, 800, 1180, 420, `scale(${pop})`); place(cC, 300, 1560, 420, `scale(${pop})`); }
+  }
+  // Limitinho 5.55–7.6 (esvazia), depois fica pequeno ao lado em Acabou
+  if (t >= 5.55 && t < 9.2) {
+    const e = clamp(seg(t, 5.75, 7.3));
+    $('limSandTop').setAttribute('y', lerp(64, 110, e)); $('limSandTop').setAttribute('height', lerp(46, 0, e));
+    $('limSandBot').setAttribute('y', lerp(150, 118, e)); $('limSandBot').setAttribute('height', lerp(50, 82, e));
+    $('limStream').setAttribute('height', e < 1 ? lerp(150, 118, e) - 104 : 0);
+    $('limTop').setAttribute('opacity', e < .985 ? 1 : 0);
+    $('faceA').style.opacity = e < .45 ? 1 : 0; $('faceB').style.opacity = e >= .45 && e < .985 ? 1 : 0; $('faceC').style.opacity = e >= .985 ? 1 : 0;
+    const shake = e > .45 && e < .985 ? Math.sin(t * 60) * 3 : 0;
+    if (t < 7.6) {
+      lim.style.opacity = 1; lim.style.width = '420px'; lim.style.height = '462px'; lim.style.left = (540 - 210 + shake) + 'px'; lim.style.top = '600px';
+      lim.style.transform = `scale(${eBack(seg(t, 5.55, 5.85))})`;
+    } else {
+      const m = eIO(seg(t, 7.6, 8.0));
+      lim.style.opacity = 1; lim.style.width = lerp(420, 190, m) + 'px'; lim.style.height = lerp(462, 209, m) + 'px';
+      lim.style.left = lerp(330, 790, m) + 'px'; lim.style.top = lerp(600, 880, m) + 'px'; lim.style.transform = `rotate(${lerp(0, 14, m)}deg)`;
+    }
+  }
+  // travesseiro 7.7–9.2
+  if (t >= 7.7 && t < 9.2) place(cT, 450, 1140 + Math.sin(t * 3) * 4, 600, `scale(${eBack(seg(t, 7.7, 8.0))})`);
+  // névoa de nuvem passando na frente 7.8–9.2
+  const f1 = $('fog1'), f2 = $('fog2');
+  f1.style.opacity = t >= 7.8 && t < 9.2 ? .85 : 0; f2.style.opacity = t >= 8.1 && t < 9.2 ? .8 : 0;
+  f1.style.left = lerp(-560, 1100, seg(t, 7.8, 9.2)) + 'px'; f1.style.top = '420px';
+  f2.style.left = lerp(1120, -420, seg(t, 8.1, 9.2)) + 'px'; f2.style.top = '1060px';
+  // grama 9.75–11.4
+  if (t >= 9.75 && t < 11.5) place(cG, 540, 1230, 860, `scale(${eBack(seg(t, 9.75, 10.05))}) rotate(${Math.sin(t * 2.4) * 1.2}deg)`);
+
+  // ----- placa -----
+  const plate = $('plate');
+  // cor do chão por cena
+  let pc = C.profundo, cc = C.tinta, gc = C.claro, tc = C.laranja;
+  const sc = (a, b, p) => mix(a, b, p);
+  if (t >= 2.8) { const p = seg(t, 2.8, 3.1); pc = sc(C.profundo, C.fundo, p); }
+  if (t >= 5.4) { pc = C.laranja; cc = C.fundo; gc = C.profundo; tc = C.fundo; }
+  if (t >= 9.2) { const p = seg(t, 9.3, 9.6); pc = sc(C.laranja, C.queimado, p); }
+  plate.style.background = pc; plate.style.color = cc;
+  $('tag').parentElement.style.color = tc;
+  $('g1').parentElement.style.color = gc; $('g2').parentElement.style.color = gc;
+  $('c1').parentElement.style.color = cc; $('c2').parentElement.style.color = cc;
+
+  // entrada / saída da placa
+  let pv = 1, py = 0, ps = 1;
+  if (t < .2) pv = 0;
+  if (t >= 4.6 && t < 5.4) pv = 0;
+  if (t >= 5.4 && t < 5.7) { const p = eOut(seg(t, 5.45, 5.7)); py = (1 - p) * 500; }
+  if (t >= 11.4) { const p = eIn(seg(t, 11.4, 11.62)); py = p * 900; }
+  if (t >= 11.65) pv = 0;
+  plate.style.opacity = pv; plate.style.transform = `translateY(${py}px) scale(${ps})`;
+
+  // textos por cena
+  const tg = $('tag'), c1 = $('c1'), g1 = $('g1'), c2 = $('c2'), g2 = $('g2'), cur = $('cursor');
+  cur.style.display = 'none'; g1.parentElement.style.transform = ''; g1.style.transform = '';
+  let v = { tag: 1, c1: 1, g1: 1, c2: 0, g2: 0 };
+  if (t < 2.8) {
+    morph(tg, TAG, '', 'CENÁRIO · FLUIDO', seg(t, .05, .4), { stagger: .02 });
+    v.c1 = seg(t, .05, .3); morph(c1, CON, '', 'EU SÓ ESCREVO O', 1);
+    const s = eBack(seg(t, .22, .5)); v.g1 = t < .22 ? 0 : 1;
+    morph(g1, GIG, '', 'PROMPT', 1); g1.style.transform = `scale(${lerp(1.7, 1, s)})`; g1.style.transformOrigin = '0 100%';
+    v.c2 = seg(t, 1.25, 1.5); morph(c2, CON, '', 'E ELE FAZ O', 1);
+    v.g2 = seg(t, 1.4, 1.6); morph(g2, GIG, '', 'RESTO', seg(t, 1.45, 1.95), { stagger: .1 });
+  } else if (t < 5.4) {
+    morph(tg, TAG, 'CENÁRIO · FLUIDO', 'CENÁRIO · CÓDIGO', seg(t, 2.85, 3.2), { stagger: .02 });
+    morph(c1, CON, 'EU SÓ ESCREVO O', 'RODOU DE', seg(t, 2.9, 3.2), { stagger: .02 });
+    morph(g1, GIG, 'PROMPT', 'PRIMEIRA', seg(t, 2.95, 3.4), { stagger: .06 });
+    morph(c2, CON, 'E ELE FAZ O', 'NINGUÉM', seg(t, 3.55, 3.8), { stagger: .03 });
+    morph(g2, GIG, 'RESTO', 'MEXE', seg(t, 3.6, 4.0), { stagger: .08 });
+    v.c2 = 1; v.g2 = 1;
+    cur.style.display = 'inline-block'; cur.style.opacity = Math.floor(t * 4) % 2 ? 0 : 1;
+  } else if (t < 7.6) {
+    morph(tg, TAG, '', 'CENÁRIO · NUVENS', 1);
+    morph(c1, CON, '', 'ACABOU O', 1);
+    const yr = Math.round(lerp(1979, 2019, eIO(seg(t, 5.9, 7.3))));
+    morph(g1, GIG, '', 'LIMITE', 1, { yearB: yr });
+    v.c2 = 0; v.g2 = 0;
+  } else if (t < 9.2) {
+    morph(tg, TAG, 'CENÁRIO · NUVENS', 'CENÁRIO · NUVENS', 1);
+    morph(c1, CON, 'ACABOU O', 'ESPERANDO O', seg(t, 7.6, 7.85), { stagger: .03 });
+    morph(g1, GIG, 'LIMITE', 'RESET', seg(t, 7.65, 8.05), { stagger: .08, yearA: 2019, yearB: 1979 });
+    v.c2 = seg(t, 8.3, 8.5); morph(c2, CON, '', 'COM MUITA', 1);
+    v.g2 = seg(t, 8.4, 8.6); morph(g2, GIG, '', 'CALMA', seg(t, 8.45, 8.85), { stagger: .1 });
+  } else {
+    morph(tg, TAG, 'CENÁRIO · NUVENS', 'CENÁRIO · FOLHAS', seg(t, 9.3, 9.6), { stagger: .02 });
+    morph(c1, CON, 'ESPERANDO O', 'FUI TOCAR NA', seg(t, 9.35, 9.65), { stagger: .02 });
+    morph(g1, GIG, 'RESET', 'GRAMA', seg(t, 9.45, 9.9), { stagger: .08 });
+    v.c2 = 1 - seg(t, 9.3, 9.55); v.g2 = 1 - seg(t, 9.3, 9.55);
+    morph(c2, CON, '', 'COM MUITA', 1); morph(g2, GIG, '', 'CALMA', 1);
+  }
+  line('Ltag', v.tag); line('Lc1', v.c1); line('Lg1', v.g1); line('Lc2', v.c2); line('Lg2', v.g2);
+
+  // ----- assinatura 12.4–14 -----
+  const sig = $('sig');
+  sig.style.opacity = t >= 12.45 ? 1 : 0;
+  if (t >= 12.45) {
+    morph($('s1'), 'big', '', 'CRAUDIO', seg(t, 12.5, 12.95), { stagger: .07 });
+    morph($('s2'), 'big', '', 'CREW', seg(t, 12.62, 13.0), { stagger: .1 });
+    const cs = $('capSig'); cs.style.opacity = 1; cs.style.left = 'auto'; cs.style.top = 'auto';
+    cs.style.transform = `scale(${eBack(seg(t, 12.75, 13.05))}) translateY(${Math.sin(t * 3) * 4}px)`;
+    const txt = 'CRAUDIO CREW · CENÁRIO FLUIDO';
+    const k = Math.round(txt.length * seg(t, 13.0, 13.35));
+    $('micro').textContent = txt.slice(0, k) + (k < txt.length || Math.floor(t * 4) % 2 ? '▌' : ' ');
+  }
+}
+window.render = render;
+window.ready = (async () => {
+  await Promise.all([
+    document.fonts.load('400 112px "Climate Crisis"'), document.fonts.load('800 50px "Baloo 2"'),
+    document.fonts.load('400 30px "Silkscreen"'), document.fonts.load('500 32px "JetBrains Mono"')]);
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; })));
+  const m = document.createElement('style'); m.textContent = '#measure.tag{font-family:Silkscreen;font-size:30px;letter-spacing:.06em}#measure.con{font-family:"Baloo 2";font-weight:800;font-size:50px;letter-spacing:.02em}#measure.gig{font-family:"Climate Crisis";font-size:112px}#measure.big{font-family:"Climate Crisis";font-size:146px}';
+  document.head.appendChild(m);
+  render(0); return true;
+})();
+</script>
+</body>
+</html>
